@@ -12,6 +12,53 @@
 body{margin:0}
 a{color:#14246B}a:hover{color:#0B154A}
 </style>
+<script>
+/* Celebrate confetti when someone subscribes (Mailchimp forms) */
+(function () {
+  if (window.__hscConfetti) return; window.__hscConfetti = true;
+  var colors = ['#14246B', '#B3262E', '#C9A227', '#3B6FD8', '#FFFFFF'];
+  function burst() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c = document.createElement('canvas');
+    c.setAttribute('aria-hidden', 'true');
+    c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2147483647';
+    document.body.appendChild(c);
+    var ctx = c.getContext('2d'), dpr = window.devicePixelRatio || 1;
+    var W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+    var parts = [];
+    function shoot(x, angle, n) {
+      for (var i = 0; i < n; i++) {
+        var a = (angle + (Math.random() - 0.5) * 55) * Math.PI / 180, v = (11 + Math.random() * 11) * dpr;
+        parts.push({ x: x, y: H, vx: Math.cos(a) * v, vy: -Math.sin(a) * v, s: (6 + Math.random() * 6) * dpr,
+          r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.35, c: colors[i % colors.length],
+          shape: Math.random() < 0.3 ? 1 : 0, wob: Math.random() * 6.28 });
+      }
+    }
+    shoot(W * 0.1, 65, 90); shoot(W * 0.9, 115, 90);
+    setTimeout(function () { shoot(W * 0.5, 90, 70); }, 250);
+    var start = performance.now();
+    (function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+      var alive = false, fade = Math.max(0, 1 - Math.max(0, t - start - 2600) / 900);
+      parts.forEach(function (p) {
+        p.vy += 0.32 * dpr; p.vx *= 0.985; p.vy *= 0.985; p.x += p.vx + Math.sin(p.wob += 0.1) * dpr; p.y += p.vy; p.r += p.vr;
+        if (p.y < H + 40) alive = true;
+        ctx.save(); ctx.globalAlpha = fade; ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c;
+        if (p.c === '#FFFFFF') { ctx.strokeStyle = 'rgba(20,36,107,.35)'; ctx.lineWidth = dpr; }
+        if (p.shape) { ctx.beginPath(); ctx.arc(0, 0, p.s / 2.4, 0, 6.28); ctx.fill(); }
+        else { ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); if (p.c === '#FFFFFF') ctx.strokeRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); }
+        ctx.restore();
+      });
+      if (alive && fade > 0) requestAnimationFrame(frame); else c.remove();
+    })(start);
+  }
+  window.hscConfetti = burst;
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (f && f.action && f.action.indexOf('list-manage.com/subscribe') !== -1) burst();
+  }, true);
+})();
+</script>
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
