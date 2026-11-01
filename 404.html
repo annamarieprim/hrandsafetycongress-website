@@ -11,10 +11,18 @@
 <style>
 body{margin:0}
 a{color:#14246B}a:hover{color:#0B154A}
-.hsc-stars span{display:inline-block;color:#F5C542;text-shadow:0 0 6px rgba(245,197,66,.55);animation:hscGlow 2.8s ease-in-out infinite}
-.hsc-stars span:nth-child(2){animation-delay:.25s}.hsc-stars span:nth-child(3){animation-delay:.5s}.hsc-stars span:nth-child(4){animation-delay:.75s}.hsc-stars span:nth-child(5){animation-delay:1s}
-@keyframes hscGlow{0%,100%{transform:scale(1);text-shadow:0 0 6px rgba(245,197,66,.45)}45%{transform:scale(1.18);color:#FFE08A;text-shadow:0 0 14px rgba(255,214,102,.95),0 0 30px rgba(245,197,66,.6)}}
-@media (prefers-reduced-motion: reduce){.hsc-stars span{animation:none}}
+.hsc-stars span{display:inline-block;color:#F5C542;text-shadow:0 0 8px rgba(245,197,66,.6);animation:4s ease-out infinite}
+.hsc-stars span:nth-child(1){animation-name:hscS1}
+.hsc-stars span:nth-child(2){animation-name:hscS2}
+.hsc-stars span:nth-child(3){animation-name:hscS3}
+.hsc-stars span:nth-child(4){animation-name:hscS4}
+.hsc-stars span:nth-child(5){animation-name:hscS5}
+@keyframes hscS1{0%{color:#6B6440;text-shadow:none;transform:scale(1)}5%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}10%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
+@keyframes hscS2{0%,12%{color:#6B6440;text-shadow:none;transform:scale(1)}17%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}22%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
+@keyframes hscS3{0%,24%{color:#6B6440;text-shadow:none;transform:scale(1)}29%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}34%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
+@keyframes hscS4{0%,36%{color:#6B6440;text-shadow:none;transform:scale(1)}41%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}46%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
+@keyframes hscS5{0%,48%{color:#6B6440;text-shadow:none;transform:scale(1)}53%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}58%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.hsc-stars span{animation:none !important}}
 </style>
 </head>
 <body>
