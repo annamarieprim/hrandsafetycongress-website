@@ -23,6 +23,11 @@ a{color:#14246B}a:hover{color:#0B154A}
 @keyframes hscS4{0%,36%{color:#6B6440;text-shadow:none;transform:scale(1)}41%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}46%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
 @keyframes hscS5{0%,48%{color:#6B6440;text-shadow:none;transform:scale(1)}53%{color:#FFE58A;text-shadow:0 0 16px rgba(255,224,138,1),0 0 34px rgba(245,197,66,.75);transform:scale(1.25)}58%,84%{color:#FFD54F;text-shadow:0 0 10px rgba(255,213,79,.9),0 0 24px rgba(245,197,66,.55);transform:scale(1)}94%,100%{color:#6B6440;text-shadow:none;transform:scale(1)}}
 @media (prefers-reduced-motion: reduce){.hsc-stars span{animation:none !important}}
+.hsc-onsale{animation:hscOnsale 2.4s ease-in-out infinite}
+@keyframes hscOnsale{0%,100%{color:#F5C542;text-shadow:0 0 0 rgba(245,197,66,0)}50%{color:#FFE08A;text-shadow:0 0 10px rgba(255,214,102,.9),0 0 22px rgba(245,197,66,.55)}}
+.hsc-shimmer{background:linear-gradient(100deg,#C3CBE6 0%,#C3CBE6 35%,#FFFFFF 45%,#FFE08A 50%,#FFFFFF 55%,#C3CBE6 65%,#C3CBE6 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:hscShimmer 3.2s linear infinite}
+@keyframes hscShimmer{0%{background-position:120% 0}100%{background-position:-120% 0}}
+@media (prefers-reduced-motion: reduce){.hsc-onsale,.hsc-shimmer{animation:none !important}.hsc-shimmer{-webkit-text-fill-color:#D7DDF0;color:#D7DDF0}}
 </style>
 </head>
 <body>
@@ -89,8 +94,8 @@ a{color:#14246B}a:hover{color:#0B154A}
 <p style="margin: 0; font-size: 16px; color: #D7DDF0;">285 Oblate Drive, San Antonio, TX 78216 · Free parking</p>
 <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid #34479A;">
 <p style="margin: 0; font-weight: 800; font-size: 30px; line-height: 1; color: #FFFFFF;">$150 <span style="font-size: 16px; font-weight: 600; color: #D7DDF0;">per ticket</span></p>
-<p style="margin: 6px 0 0; font-size: 16px; color: #F5C542; font-weight: 700;">Tickets go on sale April 1, 2027</p>
-<p style="margin: 4px 0 0; font-size: 15px; color: #D7DDF0;">Join the waiting list to hear first.</p>
+<p class="hsc-onsale" style="margin: 6px 0 0; font-size: 16px; color: #F5C542; font-weight: 700;">Tickets go on sale April 1, 2027</p>
+<p style="margin: 4px 0 0; font-size: 15px; color: #D7DDF0;"><span class="hsc-shimmer">Join the waiting list to hear first.</span></p>
 </div>
 </div>
 <div style="flex: 999 1 520px; min-width: 0; padding: 32px 36px; background: #FFFFFF; border: 1px solid #DDE2EE; border-bottom: 0; box-sizing: border-box;">
