@@ -12,6 +12,14 @@
 body{margin:0}
 a{color:#195740}a:hover{color:#082B1E}
 h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
+.hiw-steps>li{animation:6s ease-in-out infinite}
+.hiw-steps>li:nth-child(1){animation-name:hiw1}
+@keyframes hiw1{0%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}6.00%,27.00%{transform:translateY(-8px);background:#FBF6E8;border-top-color:#D5A939;box-shadow:0 14px 30px rgba(213,169,57,.35),0 0 0 2px rgba(213,169,57,.55)}33.33%,100%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}}
+.hiw-steps>li:nth-child(2){animation-name:hiw2}
+@keyframes hiw2{0%,33.33%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}39.33%,60.33%{transform:translateY(-8px);background:#FBF6E8;border-top-color:#D5A939;box-shadow:0 14px 30px rgba(213,169,57,.35),0 0 0 2px rgba(213,169,57,.55)}66.66%,100%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}}
+.hiw-steps>li:nth-child(3){animation-name:hiw3}
+@keyframes hiw3{0%,66.66%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}72.66%,93.66%{transform:translateY(-8px);background:#FBF6E8;border-top-color:#D5A939;box-shadow:0 14px 30px rgba(213,169,57,.35),0 0 0 2px rgba(213,169,57,.55)}99.99%,100%{transform:translateY(0);background:#FFFFFF;border-top-color:#0F3E2D;box-shadow:0 0 0 rgba(213,169,57,0)}}
+@media (prefers-reduced-motion: reduce){.hiw-steps>li{animation:none !important}}
 </style>
 </head>
 <body>
@@ -174,7 +182,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <p style="margin: 0 0 10px; font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #85671A;">Registration</p>
 <h2 style="margin: 0 0 16px; font-weight: 800; font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.1; color: #082B1E;">How It Works</h2>
 <p style="margin: 0 0 36px; color: #33443D; max-width: 820px;">The waiting list is open now at no cost: just subscribe to the HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup> list below. Because the 2027 Blood Cancer United Visionaries of the Year campaign does not officially begin until April 1, 2027, tickets go on sale that day. Everyone on the waiting list will receive an email with a link to purchase their $150 RENEW ticket at hrandsafetycongress.com. HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup> will donate your ticket purchase to Blood Cancer United, and once your ticket is purchased, your seat is confirmed.</p>
-<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+<ol class="hiw-steps" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
 <li style="border: 1px solid #D5E7DE; border-top: 4px solid #0F3E2D; border-radius: 6px; padding: 26px 28px; display: flex; flex-direction: column; gap: 6px;">
 <p style="margin: 0; display: flex; gap: 10px; align-items: baseline; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;"><span style="color: #4A5A53;">Step 1</span><span style="color: #85671A;">Now</span></p>
 <h3 style="margin: 6px 0 0; font-weight: 800; font-size: 24px; color: #0F3E2D;">Join the waiting list.</h3>
