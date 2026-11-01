@@ -53,10 +53,15 @@ a{color:#14246B}a:hover{color:#0B154A}
     })(start);
   }
   window.hscConfetti = burst;
-  document.addEventListener('submit', function (e) {
-    var f = e.target;
-    if (f && f.action && f.action.indexOf('list-manage.com/subscribe') !== -1) burst();
+  var last = 0;
+  function celebrate() { var n = Date.now(); if (n - last > 1500) { last = n; burst(); } }
+  function isSignup(f) { return f && f.action && f.action.indexOf('list-manage.com/subscribe') !== -1; }
+  /* fire as soon as they tick a box on a signup form (before Mailchimp opens) */
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t && t.type === 'checkbox' && t.checked && isSignup(t.form)) celebrate();
   }, true);
+  document.addEventListener('submit', function (e) { if (isSignup(e.target)) celebrate(); }, true);
 })();
 </script>
 </head>
