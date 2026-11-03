@@ -17,7 +17,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 (function () {
   if (window.__hscConfetti) return; window.__hscConfetti = true;
   var colors = ['#14246B', '#B3262E', '#C9A227', '#3B6FD8', '#FFFFFF'];
-  function burst() {
+  function burst(mode) {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var c = document.createElement('canvas');
     c.setAttribute('aria-hidden', 'true');
@@ -34,14 +34,23 @@ a{color:#14246B}a:hover{color:#0B154A}
           shape: Math.random() < 0.3 ? 1 : 0, wob: Math.random() * 6.28 });
       }
     }
-    shoot(W * 0.1, 65, 90); shoot(W * 0.9, 115, 90);
-    setTimeout(function () { shoot(W * 0.5, 90, 70); }, 250);
+    if (mode === 'rain') {
+      /* gentle shower falling from the top of the screen */
+      for (var i = 0; i < 160; i++) {
+        parts.push({ x: Math.random() * W, y: -Math.random() * H * 0.9, vx: (Math.random() - 0.5) * 2 * dpr, vy: (1.5 + Math.random() * 2.5) * dpr,
+          s: (6 + Math.random() * 6) * dpr, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.25, c: colors[i % colors.length],
+          shape: Math.random() < 0.3 ? 1 : 0, wob: Math.random() * 6.28, rain: true });
+      }
+    } else {
+      shoot(W * 0.1, 65, 90); shoot(W * 0.9, 115, 90);
+      setTimeout(function () { shoot(W * 0.5, 90, 70); }, 250);
+    }
     var start = performance.now();
     (function frame(t) {
       ctx.clearRect(0, 0, W, H);
-      var alive = false, fade = Math.max(0, 1 - Math.max(0, t - start - 2600) / 900);
+      var alive = false, life = parts.length && parts[0].rain ? 5200 : 2600, fade = Math.max(0, 1 - Math.max(0, t - start - life) / 900);
       parts.forEach(function (p) {
-        p.vy += 0.32 * dpr; p.vx *= 0.985; p.vy *= 0.985; p.x += p.vx + Math.sin(p.wob += 0.1) * dpr; p.y += p.vy; p.r += p.vr;
+        if (p.rain) { p.vy = Math.min(p.vy + 0.04 * dpr, 4.5 * dpr); } else { p.vy += 0.32 * dpr; p.vx *= 0.985; p.vy *= 0.985; } p.x += p.vx + Math.sin(p.wob += 0.1) * dpr; p.y += p.vy; p.r += p.vr;
         if (p.y < H + 40) alive = true;
         ctx.save(); ctx.globalAlpha = fade; ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c;
         if (p.c === '#FFFFFF') { ctx.strokeStyle = 'rgba(20,36,107,.35)'; ctx.lineWidth = dpr; }
@@ -63,6 +72,10 @@ a{color:#14246B}a:hover{color:#0B154A}
   }, true);
   document.addEventListener('submit', function (e) { if (isSignup(e.target)) celebrate(); }, true);
 })();
+</script>
+<script>
+/* Welcome confetti shower when the Subscribe page opens */
+window.addEventListener('load', function () { setTimeout(function () { if (window.hscConfetti) window.hscConfetti('rain'); }, 300); });
 </script>
 <script>
 /* Mailchimp rejects a half-filled address: if any address part is filled, require street, city, state and ZIP */
