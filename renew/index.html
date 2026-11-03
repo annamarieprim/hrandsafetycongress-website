@@ -83,20 +83,26 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 })();
 </script>
 <script>
-/* RENEW: a few eucalyptus leaves drift gently down the page now and then */
+/* RENEW: a few eucalyptus leaves drift gently down, from the Join the waiting list section to the bottom of the page */
 (function () {
   if (window.__renewLeaves) return; window.__renewLeaves = true;
   function start() {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sec = document.getElementById('subscribe'); if (!sec) return;
     var c = document.createElement('canvas');
     c.setAttribute('aria-hidden', 'true');
-    c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50';
+    c.style.cssText = 'position:absolute;left:0;pointer-events:none;z-index:50';
     document.body.appendChild(c);
-    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H;
-    function size() { W = c.width = innerWidth * dpr; H = c.height = innerHeight * dpr; }
-    size(); addEventListener('resize', size);
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, visible = false;
+    function size() {
+      var top = sec.getBoundingClientRect().top + scrollY, bottom = document.documentElement.scrollHeight;
+      c.style.top = top + 'px'; c.style.width = document.documentElement.clientWidth + 'px'; c.style.height = (bottom - top) + 'px';
+      W = c.width = document.documentElement.clientWidth * dpr; H = c.height = (bottom - top) * dpr;
+    }
+    size(); addEventListener('resize', size); setTimeout(size, 1500);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(c); else visible = true;
     var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
-    var leaves = [], MAX = innerWidth < 700 ? 4 : 7, next = 0;
+    var leaves = [], MAX = innerWidth < 700 ? 3 : 5, next = 0;
     function spawn(t, y) {
       var s = (14 + Math.random() * 14) * dpr;
       leaves.push({ x: Math.random() * W, y: y == null ? -s * 2 : y, s: s,
@@ -117,9 +123,9 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
       ctx.strokeStyle = p.c; ctx.lineWidth = Math.max(1, dpr); ctx.beginPath(); ctx.moveTo(0, s); ctx.lineTo(0, s * 1.25); ctx.stroke();
       ctx.restore();
     }
-    var t0 = performance.now(); spawn(t0, H * 0.15); spawn(t0, H * 0.45);
+    var t0 = performance.now(); spawn(t0, H * 0.2); spawn(t0, H * 0.55);
     (function frame(t) {
-      if (!document.hidden) {
+      if (!document.hidden && visible) {
         ctx.clearRect(0, 0, W, H);
         if (t > next && leaves.length < MAX) spawn(t);
         for (var i = leaves.length - 1; i >= 0; i--) {
