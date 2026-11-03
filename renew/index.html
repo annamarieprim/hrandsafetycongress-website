@@ -406,6 +406,43 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 </footer>
 
 </div>
+<audio id="renew-music" src="/assets/renew-come-back-to-you.mp4" preload="none" loop></audio>
+<button id="renew-music-btn" type="button" aria-pressed="false" aria-label="Play music: Come Back to You" style="position: fixed; right: 18px; bottom: 18px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; font: inherit; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: #FFFFFF; background: #0F3E2D; border: 1px solid rgba(213, 169, 57, 0.7); border-radius: 999px; padding: 10px 16px 10px 12px; box-shadow: 0 6px 20px rgba(8, 43, 30, 0.35); cursor: pointer;"><span data-icon aria-hidden="true" style="display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center; color: #D5A939;">&#9835;</span><span data-label>Play music</span></button>
+<script>
+/* RENEW background song: starts softly on the visitor's first click or tap (browsers don't allow sound before that). The button pauses/plays. */
+(function () {
+  var a = document.getElementById('renew-music'), b = document.getElementById('renew-music-btn');
+  if (!a || !b || window.__renewMusic) return; window.__renewMusic = true;
+  var KEY = 'renewMusicOff', started = false, fadeT;
+  function off() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function remember(v) { try { v ? localStorage.setItem(KEY, '1') : localStorage.removeItem(KEY); } catch (e) {} }
+  function ui(playing) {
+    b.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    b.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' music: Come Back to You');
+    b.querySelector('[data-label]').textContent = playing ? 'Pause music' : 'Play music';
+    b.querySelector('[data-icon]').innerHTML = playing ? '&#10073;&#10073;' : '&#9835;';
+  }
+  function play() {
+    clearInterval(fadeT); a.volume = 0;
+    var pr = a.play(); if (pr && pr.catch) pr.catch(function () { ui(false); });
+    fadeT = setInterval(function () { a.volume = Math.min(0.4, a.volume + 0.02); if (a.volume >= 0.4) clearInterval(fadeT); }, 100);
+    started = true; ui(true);
+  }
+  function pause() { clearInterval(fadeT); a.pause(); ui(false); }
+  b.addEventListener('click', function (e) {
+    e.stopPropagation(); started = true;
+    if (a.paused) { remember(false); play(); } else { remember(true); pause(); }
+  });
+  function first(e) {
+    if (started || off()) return cleanup();
+    if (e.target && e.target.closest && e.target.closest('input, textarea, select, label')) return; /* don't start while someone is filling the form */
+    play(); cleanup();
+  }
+  function cleanup() { ['click', 'touchend', 'keydown'].forEach(function (t) { document.removeEventListener(t, first, true); }); }
+  ['click', 'touchend', 'keydown'].forEach(function (t) { document.addEventListener(t, first, true); });
+  a.addEventListener('pause', function () { ui(false); }); a.addEventListener('play', function () { ui(true); });
+})();
+</script>
 <script>(function(){if(Date.now()>=Date.parse('2026-11-27T00:00:00-06:00')){document.querySelectorAll('[data-show-from]').forEach(function(e){e.style.display='';});}})();</script>
 </body>
 </html>
