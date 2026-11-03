@@ -95,14 +95,13 @@ a{color:#14246B}a:hover{color:#0B154A}
 #top h1, #top h2, #top p { text-shadow: 0 2px 14px rgba(5, 12, 45, 0.55), 0 1px 3px rgba(5, 12, 45, 0.5); }
 </style>
 <style>
-/* Why attend: icons draw themselves in navy, then turn red; cards react on hover */
+/* Why attend: navy icons draw themselves in; cards react on hover */
 #benefits article { transition: transform 0.25s ease, box-shadow 0.25s ease; }
 #benefits article svg { box-sizing: content-box; padding: 9px; margin: -9px; border-radius: 50%; background: transparent; transition: background 0.25s ease, stroke 0.25s ease; }
 #benefits article:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(20, 36, 107, 0.14); }
 #benefits article:hover svg { stroke: #BD2024; background: #E9ECF6; }
 .hsc-draw-ready > * { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .hsc-drawn > * { stroke-dashoffset: 0; transition: stroke-dashoffset 1.3s ease-in-out var(--hsc-d, 0s); }
-#benefits article svg.hsc-drawn { stroke: #BD2024; transition: stroke 0.7s ease calc(var(--hsc-d, 0s) + 1.3s), background 0.25s ease; }
 @media (prefers-reduced-motion: reduce) { #benefits article, #benefits article:hover { transform: none; transition: none; } }
 </style>
 <script>
