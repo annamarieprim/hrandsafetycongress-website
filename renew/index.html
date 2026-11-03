@@ -165,18 +165,15 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 /* RENEW extras: pointer, leaf pointer, fact-card entrance, tracing light on the waiting-list button */
 @keyframes renewPoint { 0%, 55%, 100% { transform: translate(0, 0) scale(1); } 70% { transform: translate(6px, -6px); } 76% { transform: translate(6px, -6px) scale(0.86); } 84% { transform: translate(6px, -6px) scale(1); } }
 .renew-pointer { transform-origin: 80% 10%; animation: renewPoint 2.8s ease-in-out infinite; }
-@keyframes renewLeafPoint { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(7px) rotate(-6deg); } }
-.renew-leafpoint { transform-origin: 30% 50%; animation: renewLeafPoint 2.4s ease-in-out infinite; }
-@media (max-width: 520px) { .renew-leafpoint { display: none; } }
 .renew-fact { transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease; }
 .renew-fact:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(15, 62, 45, 0.14); }
 .renew-fact.pre { opacity: 0; transform: translateY(18px); }
 .renew-fact.in { opacity: 1; transform: none; transition: opacity 0.7s ease var(--rf-d, 0s), transform 0.7s ease var(--rf-d, 0s), box-shadow 0.25s ease; }
 @property --renew-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 .renew-trace { position: relative; isolation: isolate; }
-.renew-trace::before { content: ''; position: absolute; inset: -4px; border-radius: 7px; padding: 2px; background: conic-gradient(from var(--renew-a), rgba(15, 62, 45, 0.14) 0deg 220deg, rgba(213, 169, 57, 0.5) 285deg, rgba(15, 62, 45, 0.85) 345deg, rgba(15, 62, 45, 0.14) 360deg); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: renewTrace 3.4s linear infinite; pointer-events: none; }
+.renew-trace::before { content: ''; position: absolute; inset: -4px; border-radius: 7px; padding: 2px; background: conic-gradient(from var(--renew-a), rgba(213, 169, 57, 0.18) 0deg 215deg, rgba(213, 169, 57, 0.55) 280deg, #F3DA8A 330deg, #FFFFFF 348deg, rgba(213, 169, 57, 0.18) 360deg); filter: drop-shadow(0 0 4px rgba(213, 169, 57, 0.7)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: renewTrace 3.4s linear infinite; pointer-events: none; }
 @keyframes renewTrace { to { --renew-a: 360deg; } }
-@media (prefers-reduced-motion: reduce) { .renew-pointer, .renew-leafpoint, .renew-trace::before { animation: none; } .renew-fact, .renew-fact.pre, .renew-fact:hover { opacity: 1; transform: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .renew-pointer, .renew-trace::before { animation: none; } .renew-fact, .renew-fact.pre, .renew-fact:hover { opacity: 1; transform: none; transition: none; } }
 </style>
 <script>
 (function () {
@@ -225,7 +222,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <p style="margin: 14px 0 0; font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2;">A Half-Day Leadership Experience</p>
 <p style="margin: 22px 0 0; max-width: 620px; font-size: 19px; color: #DCE8E2;">Sometimes the people taking care of everyone else need a little renewal, too.</p>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px;">
-<span style="position: relative; display: inline-block; max-width: 100%;"><a href="#subscribe" style="display: inline-block; box-sizing: border-box; max-width: 100%; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 28px; border-radius: 4px; font-weight: 700; font-size: 17px;">Subscribe to Congress for more information</a><svg class="renew-pointer" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" style="position: absolute; left: -18px; bottom: -22px; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(8, 43, 30, 0.45));"><g transform="translate(24 0) scale(-1 1)"><path d="M4 2.5 L4 19 L8.6 14.9 L11.6 21.5 L14.6 20.1 L11.7 13.6 L18 13.4 Z" fill="#BD2024" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></g></svg></span>
+<span style="position: relative; display: inline-block; max-width: 100%;"><a href="#subscribe" style="display: inline-block; box-sizing: border-box; max-width: 100%; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 28px; border-radius: 4px; font-weight: 700; font-size: 17px;">Subscribe to Congress for more information</a><svg class="renew-pointer" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" style="position: absolute; left: -18px; bottom: -22px; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(8, 43, 30, 0.45));"><g transform="translate(24 0) scale(-1 1)"><path d="M4 2.5 L4 19 L8.6 14.9 L11.6 21.5 L14.6 20.1 L11.7 13.6 L18 13.4 Z" fill="#FFFFFF" stroke="#0F3E2D" stroke-width="1.6" stroke-linejoin="round"></path></g></svg></span>
 <a href="#register" style="color: #FFFFFF; text-decoration: none; padding: 13px 26px; border-radius: 4px; font-weight: 700; font-size: 17px; border: 2px solid #FFFFFF;">How it works</a>
 </div>
 </div>
@@ -371,7 +368,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <p style="margin: 0; color: #4A5A53; font-size: 17px;">Join us in San Antonio for a morning that will stay with you.</p>
 </li>
 </ol>
-<div style="margin-top: 32px; text-align: center;"><span style="position: relative; display: inline-block;"><svg class="renew-leafpoint" aria-hidden="true" width="46" height="26" viewBox="0 0 46 26" style="position: absolute; right: 100%; top: 50%; margin: -13px 12px 0 0; pointer-events: none;"><path d="M2 13 C 8 13, 10 13, 14 13" stroke="#6F9A86" stroke-width="2" stroke-linecap="round" fill="none"></path><path d="M12 13 C 18 3, 34 2, 44 13 C 34 24, 18 23, 12 13 Z" fill="#8FB09B"></path><path d="M14 13 Q 29 11.5 42 13" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1.2" fill="none"></path></svg><a href="#subscribe" style="display: inline-block; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 17px;">Join the waiting list</a></span></div>
+<div style="margin-top: 32px; text-align: center;"><a href="#subscribe" class="renew-trace" style="display: inline-block; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 17px;">Join the waiting list</a></div>
 </section>
 
 <section id="forthekids" style="background: #0F3E2D; color: #FFFFFF;">
