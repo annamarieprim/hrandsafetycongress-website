@@ -82,6 +82,59 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
   document.addEventListener('submit', function (e) { if (isSignup(e.target)) celebrate(); }, true);
 })();
 </script>
+<script>
+/* RENEW: a few eucalyptus leaves drift gently down the page now and then */
+(function () {
+  if (window.__renewLeaves) return; window.__renewLeaves = true;
+  function start() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c = document.createElement('canvas');
+    c.setAttribute('aria-hidden', 'true');
+    c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50';
+    document.body.appendChild(c);
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H;
+    function size() { W = c.width = innerWidth * dpr; H = c.height = innerHeight * dpr; }
+    size(); addEventListener('resize', size);
+    var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
+    var leaves = [], MAX = innerWidth < 700 ? 4 : 7, next = 0;
+    function spawn(t, y) {
+      var s = (14 + Math.random() * 14) * dpr;
+      leaves.push({ x: Math.random() * W, y: y == null ? -s * 2 : y, s: s,
+        vy: (0.35 + Math.random() * 0.45) * dpr, sway: (18 + Math.random() * 30) * dpr, ph: Math.random() * 6.28,
+        sp: 0.006 + Math.random() * 0.006, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.012,
+        flip: Math.random() * 6.28, c: greens[Math.floor(Math.random() * greens.length)], a: 0.55 + Math.random() * 0.3, bx: 0 });
+      next = t + 2200 + Math.random() * 3800;
+    }
+    function leaf(p) {
+      var s = p.s, w = s * 0.62 * (0.35 + 0.65 * Math.abs(Math.cos(p.flip)));
+      ctx.save(); ctx.translate(p.x + p.bx, p.y); ctx.rotate(p.r); ctx.globalAlpha = p.a;
+      ctx.beginPath(); ctx.moveTo(0, -s);
+      ctx.bezierCurveTo(w, -s * 0.55, w, s * 0.55, 0, s);
+      ctx.bezierCurveTo(-w, s * 0.55, -w, -s * 0.55, 0, -s);
+      ctx.fillStyle = p.c; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = Math.max(1, dpr * 0.8);
+      ctx.beginPath(); ctx.moveTo(0, -s * 0.85); ctx.quadraticCurveTo(w * 0.15, 0, 0, s * 0.85); ctx.stroke();
+      ctx.strokeStyle = p.c; ctx.lineWidth = Math.max(1, dpr); ctx.beginPath(); ctx.moveTo(0, s); ctx.lineTo(0, s * 1.25); ctx.stroke();
+      ctx.restore();
+    }
+    var t0 = performance.now(); spawn(t0, H * 0.15); spawn(t0, H * 0.45);
+    (function frame(t) {
+      if (!document.hidden) {
+        ctx.clearRect(0, 0, W, H);
+        if (t > next && leaves.length < MAX) spawn(t);
+        for (var i = leaves.length - 1; i >= 0; i--) {
+          var p = leaves[i];
+          p.ph += p.sp; p.y += p.vy; p.bx = Math.sin(p.ph) * p.sway; p.r += p.vr + Math.cos(p.ph) * 0.004; p.flip += 0.012;
+          if (p.y > H + p.s * 2) { leaves.splice(i, 1); continue; }
+          leaf(p);
+        }
+      }
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+  if (document.readyState === 'complete') start(); else addEventListener('load', start);
+})();
+</script>
 </head>
 <body>
 <div style="font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: #1A2621; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
