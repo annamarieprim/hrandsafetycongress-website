@@ -95,13 +95,14 @@ a{color:#14246B}a:hover{color:#0B154A}
 #top h1, #top h2, #top p { text-shadow: 0 2px 14px rgba(5, 12, 45, 0.55), 0 1px 3px rgba(5, 12, 45, 0.5); }
 </style>
 <style>
-/* Why attend: navy icons draw themselves in; cards react on hover */
+/* Why attend: icons draw themselves in (mic and monitor then turn from navy to red); cards react on hover */
 #benefits article { transition: transform 0.25s ease, box-shadow 0.25s ease; }
 #benefits article svg { box-sizing: content-box; padding: 9px; margin: -9px; border-radius: 50%; background: transparent; transition: background 0.25s ease, stroke 0.25s ease; }
 #benefits article:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(20, 36, 107, 0.14); }
 #benefits article:hover svg { background: #E9ECF6; }
 .hsc-draw-ready > * { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .hsc-drawn > * { stroke-dashoffset: 0; transition: stroke-dashoffset 1.3s ease-in-out var(--hsc-d, 0s); }
+#benefits article svg.hsc-tored.hsc-drawn { stroke: #BD2024; transition: stroke 0.8s ease calc(var(--hsc-d, 0s) + 1.3s), background 0.25s ease; }
 @media (prefers-reduced-motion: reduce) { #benefits article, #benefits article:hover { transform: none; transition: none; } }
 </style>
 <script>
@@ -268,7 +269,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 <p style="margin: 0; color: #4A5368; font-size: 17px;">Adaptable ideas you can use the next day on your own HR, safety and risk problems.</p>
 </article>
 <article style="border: 1px solid #DDE2EE; border-top: 4px solid #B3262E; border-radius: 6px; padding: 28px;">
-<svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#14246B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path><path d="M12 18v3"></path></svg>
+<svg class="hsc-tored" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#14246B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path><path d="M12 18v3"></path></svg>
 <h3 style="margin: 16px 0 8px; font-weight: 700; font-size: 21px; color: #14246B;">Distinguished speakers</h3>
 <p style="margin: 0; color: #4A5368; font-size: 17px;">TEDx-style storytelling from seasoned experts on complex workplace risks.</p>
 </article>
@@ -278,7 +279,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 <p style="margin: 0; color: #4A5368; font-size: 17px;">Voices from HR, safety, risk, legal, security, emergency response and mental health.</p>
 </article>
 <article style="border: 1px solid #DDE2EE; border-top: 4px solid #B3262E; border-radius: 6px; padding: 28px;">
-<svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#14246B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>
+<svg class="hsc-tored" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#14246B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>
 <h3 style="margin: 16px 0 8px; font-weight: 700; font-size: 21px; color: #14246B;">Connected attendee experience</h3>
 <p style="margin: 0; color: #4A5368; font-size: 17px;">An attendee portal with details, updates and resources before, during and after.</p>
 </article>
