@@ -126,6 +126,18 @@ a{color:#14246B}a:hover{color:#0B154A}
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 })();
 </script>
+<style>
+/* "Get notified": a soft red light sweeps across the navy text */
+.hsc-glowlink{background:linear-gradient(100deg,#14246B 0%,#14246B 38%,#BD2024 48%,#E2464A 50%,#BD2024 52%,#14246B 62%,#14246B 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#14246B;text-decoration:underline;text-decoration-color:#14246B;animation:hscGlowLink 3.6s ease-in-out infinite}
+@keyframes hscGlowLink{0%{background-position:100% 0}60%,100%{background-position:0 0}}
+/* Subscribe button: a small gold light travels around the outline */
+@property --hsc-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.hsc-track{position:relative;isolation:isolate;border-color:rgba(255,255,255,0.55) !important;transition:background 0.2s ease}
+.hsc-track::before{content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--hsc-a),transparent 0deg 250deg,rgba(255,224,138,0.35) 285deg,#FFE08A 330deg,#FFFFFF 350deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:hscTrack 3s linear infinite;pointer-events:none}
+.hsc-track:hover{background:rgba(255,255,255,0.1) !important}
+@keyframes hscTrack{to{--hsc-a:360deg}}
+@media (prefers-reduced-motion: reduce){.hsc-glowlink,.hsc-track::before{animation:none}.hsc-glowlink{-webkit-text-fill-color:#14246B}.hsc-track::before{display:none}.hsc-track{border-color:#FFFFFF !important}}
+</style>
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
@@ -177,7 +189,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 <p style="margin: 6px 0 0; font-weight: 700; font-size: 16px; color: #4A5368;">Coming Soon</p>
 <h3 style="margin: 0; font-weight: 700; font-size: 21px; color: #14246B;">Emergency Preparedness Table Talks</h3>
 <p style="margin: 0; color: #4A5368; font-size: 16px;">A virtual series. Dates and details coming soon.</p>
-<a href="#subscribe" style="margin-top: 8px; font-weight: 700; font-size: 16px; padding: 6px 0;">Get notified</a>
+<a href="#subscribe" style="margin-top: 8px; font-weight: 700; font-size: 16px; padding: 6px 0;"><span class="hsc-glowlink">Get notified</span></a>
 </article>
 
 </div>
@@ -338,7 +350,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 </div>
 <div style="flex: 1 1 100%; display: flex; gap: 10px; align-items: flex-start;"><input id="h-renew" name="MMERGE8" value="Yes" type="checkbox" style="width: 20px; height: 20px; margin: 3px 0 0; flex: 0 0 auto;"><label for="h-renew" style="font-size: 15px; color: #D7DDF0;">Be the first to know about RENEW. (optional)</label></div>
 <div style="flex: 1 1 100%; display: flex; gap: 10px; align-items: flex-start;"><input id="h-agree" name="MMERGE5" value="Yes, I agree to receive communications from HR + Safety Congress!" type="checkbox" required style="width: 20px; height: 20px; margin: 3px 0 0; flex: 0 0 auto;"><label for="h-agree" style="font-size: 15px; color: #D7DDF0;">I agree to receive event information, communications and updates from HR + Safety Congress LLC. *</label></div>
-<div aria-hidden="true" style="position: absolute; left: -5000px;"><input type="text" name="b_fd5599ae27f9d5174e15dd78b_3efac2a22d" tabindex="-1" value=""></div><button type="submit" style="font: inherit; font-weight: 700; font-size: 17px; padding: 13px 26px; min-height: 48px; border-radius: 4px; border: 2px solid #FFFFFF; background: transparent; color: #FFFFFF; cursor: pointer;">Subscribe</button>
+<div aria-hidden="true" style="position: absolute; left: -5000px;"><input type="text" name="b_fd5599ae27f9d5174e15dd78b_3efac2a22d" tabindex="-1" value=""></div><button type="submit" class="hsc-track" style="font: inherit; font-weight: 700; font-size: 17px; padding: 13px 26px; min-height: 48px; border-radius: 4px; border: 2px solid #FFFFFF; background: transparent; color: #FFFFFF; cursor: pointer;">Subscribe</button>
 </form>
 </div>
 </section>
