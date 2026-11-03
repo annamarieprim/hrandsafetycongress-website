@@ -83,37 +83,42 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 })();
 </script>
 <script>
-/* RENEW: a few eucalyptus leaves drift gently down, from the Join the waiting list section to the bottom of the page */
+/* RENEW: a few eucalyptus leaves drift gently in the menu bar, the $200,000 For the Kids section and the Join the waiting list section */
 (function () {
   if (window.__renewLeaves) return; window.__renewLeaves = true;
-  function start() {
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var sec = document.getElementById('subscribe'); if (!sec) return;
+  var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
+  function zone(el, opts) {
+    if (!el) return;
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
     var c = document.createElement('canvas');
     c.setAttribute('aria-hidden', 'true');
-    c.style.cssText = 'position:absolute;left:0;pointer-events:none;z-index:50';
-    document.body.appendChild(c);
+    c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5';
+    el.appendChild(c);
     var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, visible = false;
-    function size() {
-      var top = sec.getBoundingClientRect().top + scrollY, bottom = document.documentElement.scrollHeight;
-      c.style.top = top + 'px'; c.style.width = document.documentElement.clientWidth + 'px'; c.style.height = (bottom - top) + 'px';
-      W = c.width = document.documentElement.clientWidth * dpr; H = c.height = (bottom - top) * dpr;
-    }
+    function size() { W = c.width = el.clientWidth * dpr; H = c.height = el.clientHeight * dpr; }
     size(); addEventListener('resize', size); setTimeout(size, 1500);
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(c); else visible = true;
-    var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
-    var leaves = [], MAX = innerWidth < 700 ? 3 : 5, next = 0;
-    function spawn(t, y) {
-      var s = (14 + Math.random() * 14) * dpr;
-      leaves.push({ x: Math.random() * W, y: y == null ? -s * 2 : y, s: s,
-        vy: (0.35 + Math.random() * 0.45) * dpr, sway: (18 + Math.random() * 30) * dpr, ph: Math.random() * 6.28,
-        sp: 0.006 + Math.random() * 0.006, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.012,
-        flip: Math.random() * 6.28, c: greens[Math.floor(Math.random() * greens.length)], a: 0.55 + Math.random() * 0.3, bx: 0 });
-      next = t + 2200 + Math.random() * 3800;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(el); else visible = true;
+    var leaves = [], MAX = innerWidth < 700 ? opts.maxM : opts.max, next = 0;
+    function spawn(t, initial) {
+      var s = (opts.min + Math.random() * (opts.maxS - opts.min)) * dpr, p;
+      if (opts.across) {
+        /* menu bar: leaves float sideways on a light breeze */
+        p = { x: initial ? Math.random() * W : W + s * 2, y: H * (0.2 + Math.random() * 0.6), vx: -(0.25 + Math.random() * 0.3) * dpr, vy: 0,
+          sway: (4 + Math.random() * 6) * dpr };
+      } else {
+        p = { x: Math.random() * W, y: initial ? Math.random() * H * 0.6 : -s * 2, vx: 0, vy: (0.35 + Math.random() * 0.45) * dpr,
+          sway: (18 + Math.random() * 30) * dpr };
+      }
+      p.s = s; p.ph = Math.random() * 6.28; p.sp = 0.006 + Math.random() * 0.006; p.r = Math.random() * 6.28;
+      p.vr = (Math.random() - 0.5) * 0.012; p.flip = Math.random() * 6.28; p.c = greens[Math.floor(Math.random() * greens.length)];
+      p.a = opts.alpha + Math.random() * 0.25; p.off = 0;
+      leaves.push(p); next = t + opts.gap + Math.random() * opts.gap * 1.5;
     }
-    function leaf(p) {
+    function draw(p) {
       var s = p.s, w = s * 0.62 * (0.35 + 0.65 * Math.abs(Math.cos(p.flip)));
-      ctx.save(); ctx.translate(p.x + p.bx, p.y); ctx.rotate(p.r); ctx.globalAlpha = p.a;
+      ctx.save();
+      if (opts.across) ctx.translate(p.x, p.y + p.off); else ctx.translate(p.x + p.off, p.y);
+      ctx.rotate(p.r); ctx.globalAlpha = p.a;
       ctx.beginPath(); ctx.moveTo(0, -s);
       ctx.bezierCurveTo(w, -s * 0.55, w, s * 0.55, 0, s);
       ctx.bezierCurveTo(-w, s * 0.55, -w, -s * 0.55, 0, -s);
@@ -123,20 +128,26 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
       ctx.strokeStyle = p.c; ctx.lineWidth = Math.max(1, dpr); ctx.beginPath(); ctx.moveTo(0, s); ctx.lineTo(0, s * 1.25); ctx.stroke();
       ctx.restore();
     }
-    var t0 = performance.now(); spawn(t0, H * 0.2); spawn(t0, H * 0.55);
+    var t0 = performance.now(); for (var k = 0; k < opts.start; k++) spawn(t0, true);
     (function frame(t) {
       if (!document.hidden && visible) {
         ctx.clearRect(0, 0, W, H);
-        if (t > next && leaves.length < MAX) spawn(t);
+        if (t > next && leaves.length < MAX) spawn(t, false);
         for (var i = leaves.length - 1; i >= 0; i--) {
           var p = leaves[i];
-          p.ph += p.sp; p.y += p.vy; p.bx = Math.sin(p.ph) * p.sway; p.r += p.vr + Math.cos(p.ph) * 0.004; p.flip += 0.012;
-          if (p.y > H + p.s * 2) { leaves.splice(i, 1); continue; }
-          leaf(p);
+          p.ph += p.sp; p.x += p.vx; p.y += p.vy; p.off = Math.sin(p.ph) * p.sway; p.r += p.vr + Math.cos(p.ph) * 0.004; p.flip += 0.012;
+          if (p.y > H + p.s * 2 || p.x < -p.s * 3) { leaves.splice(i, 1); continue; }
+          draw(p);
         }
       }
       requestAnimationFrame(frame);
     })(t0);
+  }
+  function start() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    zone(document.querySelector('header'), { across: true, max: 3, maxM: 2, start: 2, gap: 4000, min: 8, maxS: 12, alpha: 0.5 });
+    zone(document.getElementById('forthekids'), { max: 5, maxM: 3, start: 2, gap: 2400, min: 14, maxS: 28, alpha: 0.55 });
+    zone(document.getElementById('subscribe'), { max: 5, maxM: 3, start: 2, gap: 2400, min: 14, maxS: 28, alpha: 0.55 });
   }
   if (document.readyState === 'complete') start(); else addEventListener('load', start);
 })();
