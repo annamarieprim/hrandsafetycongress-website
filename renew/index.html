@@ -161,6 +161,40 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 @media (max-width: 600px) { #renew-music-btn { right: 12px !important; bottom: 12px !important; font-size: 15px !important; padding: 10px 18px 10px 12px !important; } }
 @media (prefers-reduced-motion: reduce) { .renew-music-glow { animation: none; } }
 </style>
+<style>
+/* RENEW extras: pointer, leaf pointer, fact-card entrance, tracing light on the waiting-list button */
+@keyframes renewPoint { 0%, 55%, 100% { transform: translate(0, 0) scale(1); } 70% { transform: translate(6px, -6px); } 76% { transform: translate(6px, -6px) scale(0.86); } 84% { transform: translate(6px, -6px) scale(1); } }
+.renew-pointer { transform-origin: 80% 10%; animation: renewPoint 2.8s ease-in-out infinite; }
+@keyframes renewLeafPoint { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(7px) rotate(-6deg); } }
+.renew-leafpoint { transform-origin: 30% 50%; animation: renewLeafPoint 2.4s ease-in-out infinite; }
+@media (max-width: 520px) { .renew-leafpoint { display: none; } }
+.renew-fact { transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease; }
+.renew-fact:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(15, 62, 45, 0.14); }
+.renew-fact.pre { opacity: 0; transform: translateY(18px); }
+.renew-fact.in { opacity: 1; transform: none; transition: opacity 0.7s ease var(--rf-d, 0s), transform 0.7s ease var(--rf-d, 0s), box-shadow 0.25s ease; }
+@property --renew-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.renew-trace { position: relative; isolation: isolate; }
+.renew-trace::before { content: ''; position: absolute; inset: -4px; border-radius: 7px; padding: 2px; background: conic-gradient(from var(--renew-a), rgba(15, 62, 45, 0.14) 0deg 220deg, rgba(213, 169, 57, 0.5) 285deg, rgba(15, 62, 45, 0.85) 345deg, rgba(15, 62, 45, 0.14) 360deg); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: renewTrace 3.4s linear infinite; pointer-events: none; }
+@keyframes renewTrace { to { --renew-a: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .renew-pointer, .renew-leafpoint, .renew-trace::before { animation: none; } .renew-fact, .renew-fact.pre, .renew-fact:hover { opacity: 1; transform: none; transition: none; } }
+</style>
+<script>
+(function () {
+  function go() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var cards = document.querySelectorAll('.renew-fact'); if (!cards.length || !('IntersectionObserver' in window)) return;
+    cards.forEach(function (c, i) { c.style.setProperty('--rf-d', (i * 0.15) + 's'); c.classList.add('pre'); });
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      cards.forEach(function (c) { c.classList.add('in'); c.classList.remove('pre'); });
+      setTimeout(function () { cards.forEach(function (c) { c.style.removeProperty('--rf-d'); }); }, 1500);
+      io.disconnect();
+    }, { threshold: 0.3 });
+    io.observe(cards[0].parentNode);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+})();
+</script>
 </head>
 <body>
 <div style="font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: #1A2621; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
@@ -187,11 +221,11 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <div style="flex: 999 1 560px; min-width: 0;">
 <div style="margin: 0 0 18px;"><span aria-label="RENEW" title="RENEW" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; opacity: 0.85; border: 2px solid #FFFFFF; box-sizing: border-box; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 17px; line-height: 1; color: #FFFFFF;">R<span style="color: #D5A939;">.</span></span></div>
 <p style="margin: 0 0 18px; display: inline-block; font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 3px solid #D5A939; padding-bottom: 6px;">In person · San Antonio, TX</p>
-<h1 style="margin: 0; font-weight: 800; font-size: clamp(3.4rem, 9vw, 6.5rem); line-height: 0.95; letter-spacing: 0.25em; text-transform: uppercase;">RENEW</h1>
+<h1 style="margin: 0; font-weight: 800; font-size: clamp(3.4rem, 9vw, 6.5rem); line-height: 0.95; letter-spacing: 0.25em; text-transform: uppercase;" aria-label="RENEW.">RENEW<span aria-hidden="true" style="color: #D5A939; letter-spacing: 0; margin-left: -0.22em;">.</span></h1>
 <p style="margin: 14px 0 0; font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2;">A Half-Day Leadership Experience</p>
 <p style="margin: 22px 0 0; max-width: 620px; font-size: 19px; color: #DCE8E2;">Sometimes the people taking care of everyone else need a little renewal, too.</p>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px;">
-<a href="#subscribe" style="background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 28px; border-radius: 4px; font-weight: 700; font-size: 17px;">Subscribe to Congress for more information</a>
+<span style="position: relative; display: inline-block; max-width: 100%;"><a href="#subscribe" style="display: inline-block; box-sizing: border-box; max-width: 100%; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 28px; border-radius: 4px; font-weight: 700; font-size: 17px;">Subscribe to Congress for more information</a><svg class="renew-pointer" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" style="position: absolute; left: -18px; bottom: -22px; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(8, 43, 30, 0.45));"><g transform="translate(24 0) scale(-1 1)"><path d="M4 2.5 L4 19 L8.6 14.9 L11.6 21.5 L14.6 20.1 L11.7 13.6 L18 13.4 Z" fill="#BD2024" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></g></svg></span>
 <a href="#register" style="color: #FFFFFF; text-decoration: none; padding: 13px 26px; border-radius: 4px; font-weight: 700; font-size: 17px; border: 2px solid #FFFFFF;">How it works</a>
 </div>
 </div>
@@ -228,20 +262,20 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 
 <section aria-label="Event facts" style="max-width: 1200px; margin: 0 auto; padding: 0 24px 48px;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-<div style="border: 1px solid #D5E7DE; border-top: 4px solid #0F3E2D; border-radius: 6px; padding: 22px 24px;">
+<div class="renew-fact" style="border: 1px solid #D5E7DE; border-top: 4px solid #0F3E2D; border-radius: 6px; padding: 22px 24px;">
 <p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A5A53;">Program</p>
-<p style="margin: 6px 0 0; font-weight: 700; color: #0F3E2D;">8:30 AM–12:30 PM</p>
+<p style="margin: 6px 0 0; font-weight: 700; color: #0F3E2D;">8:00 AM–1:00 PM</p>
 <p style="margin: 2px 0 0; font-size: 16px; color: #4A5A53;">Detailed schedule coming soon</p>
 </div>
-<div style="border: 1px solid #D5E7DE; border-top: 4px solid #D5A939; border-radius: 6px; padding: 22px 24px;">
+<div class="renew-fact" style="border: 1px solid #D5E7DE; border-top: 4px solid #D5A939; border-radius: 6px; padding: 22px 24px;">
 <p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A5A53;">Parking</p>
 <p style="margin: 6px 0 0; font-weight: 700; color: #0F3E2D;">Free on site</p>
 </div>
-<div style="border: 1px solid #D5E7DE; border-top: 4px solid #0F3E2D; border-radius: 6px; padding: 22px 24px;">
+<div class="renew-fact" style="border: 1px solid #D5E7DE; border-top: 4px solid #0F3E2D; border-radius: 6px; padding: 22px 24px;">
 <p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A5A53;">Format</p>
 <p style="margin: 6px 0 0; font-weight: 700; color: #0F3E2D;">In person, half day</p>
 </div>
-<div style="border: 1px solid #D5E7DE; border-top: 4px solid #D5A939; border-radius: 6px; padding: 22px 24px;">
+<div class="renew-fact" style="border: 1px solid #D5E7DE; border-top: 4px solid #D5A939; border-radius: 6px; padding: 22px 24px;">
 <p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A5A53;">Benefiting</p>
 <p style="margin: 6px 0 0; font-weight: 700; color: #0F3E2D;">Blood Cancer United</p>
 </div>
@@ -337,7 +371,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <p style="margin: 0; color: #4A5A53; font-size: 17px;">Join us in San Antonio for a morning that will stay with you.</p>
 </li>
 </ol>
-<div style="margin-top: 32px; text-align: center;"><a href="#subscribe" style="display: inline-block; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 17px;">Join the waiting list</a></div>
+<div style="margin-top: 32px; text-align: center;"><span style="position: relative; display: inline-block;"><svg class="renew-leafpoint" aria-hidden="true" width="46" height="26" viewBox="0 0 46 26" style="position: absolute; right: 100%; top: 50%; margin: -13px 12px 0 0; pointer-events: none;"><path d="M2 13 C 8 13, 10 13, 14 13" stroke="#6F9A86" stroke-width="2" stroke-linecap="round" fill="none"></path><path d="M12 13 C 18 3, 34 2, 44 13 C 34 24, 18 23, 12 13 Z" fill="#8FB09B"></path><path d="M14 13 Q 29 11.5 42 13" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1.2" fill="none"></path></svg><a href="#subscribe" style="display: inline-block; background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 17px;">Join the waiting list</a></span></div>
 </section>
 
 <section id="forthekids" style="background: #0F3E2D; color: #FFFFFF;">
@@ -397,7 +431,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 <div style="grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start;"><input id="r-agree" name="MMERGE5" value="Yes, I agree to receive communications from HR + Safety Congress!" type="checkbox" required style="width: 20px; height: 20px; margin: 3px 0 0; flex: 0 0 auto;"><label for="r-agree" style="font-size: 15px;">I agree to receive event information, communications and updates from HR + Safety Congress LLC. *</label></div>
 <div style="grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start;"><input id="r-renew" name="MMERGE8" value="Yes" type="checkbox" checked style="width: 20px; height: 20px; margin: 3px 0 0; flex: 0 0 auto;"><label for="r-renew" style="font-size: 15px;">Add me to the RENEW waiting list and be the first to know when tickets go on sale.</label></div>
 <p style="grid-column: 1 / -1; margin: 0; font-size: 15px; color: #33443D;">Joining the waiting list subscribes you to the HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup> email list. You’ll receive RENEW updates and your April 1 ticket link there. Unsubscribe anytime.</p>
-<div aria-hidden="true" style="position: absolute; left: -5000px;"><input type="text" name="b_fd5599ae27f9d5174e15dd78b_3efac2a22d" tabindex="-1" value=""></div><button type="submit" style="grid-column: 1 / -1; font: inherit; font-weight: 700; font-size: 17px; padding: 14px 26px; min-height: 50px; border-radius: 4px; border: 0; background: #D5A939; color: #082B1E; cursor: pointer;">Join the waiting list</button>
+<div aria-hidden="true" style="position: absolute; left: -5000px;"><input type="text" name="b_fd5599ae27f9d5174e15dd78b_3efac2a22d" tabindex="-1" value=""></div><button type="submit" class="renew-trace" style="grid-column: 1 / -1; font: inherit; font-weight: 700; font-size: 17px; padding: 14px 26px; min-height: 50px; border-radius: 4px; border: 0; background: #D5A939; color: #082B1E; cursor: pointer;">Join the waiting list</button>
 </form>
 </div>
 </section>
