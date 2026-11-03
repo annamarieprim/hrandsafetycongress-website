@@ -144,6 +144,22 @@ a{color:#14246B}a:hover{color:#0B154A}
 .hsc-cursor { transform-origin: 20% 10%; animation: hscPoint 2.8s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .hsc-cursor { animation: none; } }
 </style>
+<style>
+/* speaker-pop css */
+#hsc-sp { position: absolute; z-index: 80; width: min(480px, calc(100vw - 24px)); box-sizing: border-box; background: #14513B; color: #FFFFFF; border: 2px solid #D5A939; border-radius: 10px; box-shadow: 0 22px 50px rgba(8, 43, 30, 0.4); padding: 18px; font-family: 'Public Sans', system-ui, sans-serif; text-align: left; opacity: 0; transform: translateY(6px); transition: opacity 0.18s ease, transform 0.18s ease; }
+#hsc-sp.on { opacity: 1; transform: none; }
+#hsc-sp .hsc-sp-top { display: flex; gap: 14px; align-items: center; }
+#hsc-sp img { width: 84px; height: 96px; object-fit: cover; object-position: center top; border-radius: 6px; flex: 0 0 auto; background: #0F3E2D; }
+#hsc-sp .hsc-sp-badge { display: inline-block; font-family: 'Public Sans', system-ui, sans-serif; background: #D5A939; color: #082B1E; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+#hsc-sp .hsc-sp-name { margin: 6px 0 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; line-height: 1.15; }
+#hsc-sp .hsc-sp-title { margin: 3px 0 0; font-size: 14px; font-weight: 600; color: #DCE8E2; }
+#hsc-sp .hsc-sp-body { margin-top: 12px; max-height: 250px; overflow: auto; padding-right: 6px; }
+#hsc-sp .hsc-sp-body p { margin: 0 0 8px; font-size: 14px; line-height: 1.55; color: #E8F0EC; }
+#hsc-sp .hsc-sp-note { color: #F3DA8A !important; font-weight: 600; }
+#hsc-sp .hsc-sp-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+#hsc-sp a { color: #F3DA8A; font-weight: 700; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { #hsc-sp { transition: none; transform: none; } }
+</style>
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
@@ -417,6 +433,62 @@ a{color:#14246B}a:hover{color:#0B154A}
 </footer>
 
 </div>
+<!-- speaker-pop:start -->
+<div id="hsc-sp" role="dialog" aria-hidden="true" style="display: none;"></div>
+<script>
+/* Home: hovering a RENEW headliner chip shows that speaker's full card from the RENEW page */
+(function () {
+  var D = {"speaker-steve-multer": {"role": "The Host", "name": "Steve Multer", "title": "Storytelling Strategist & Keynote Speaker", "full": "Steve Multer is a 25-year veteran market messaging strategist and corporate spokesman trusted by Fortune leaders like Cisco, Panasonic, Fujifilm, HP, Siemens, Intel, and over 150 others. He has crafted and delivered more than 15,000 presentations in 38 states and 23 countries, and coached 3,500 speakers with his Story Moves the Needle™ framework. His bestselling book, Nothing Gets Sold Until the Story Gets Told, is a masterclass on winning communication and the neuroscience behind how speakers deliver meaningful value for any audience.", "note": "", "url": "https://stevemulter.com/", "linkText": "Visit Steve’s website →", "img": "/assets/speakers/steve-multer-wide.jpg"}, "speaker-nicole-bianchi": {"role": "Keynote Speaker", "name": "Nicole Bianchi", "title": "Keynote Speaker and Best-Selling Author", "full": "Nicole Bianchi embodies brave leadership, bold vision, and boundless heart. As the founder of Bravership® (Bravery + Leadership), Nicole has spent her life helping leaders rise — from inside the boardroom leading transformations in Fortune 500 companies to global stages and audiences, her message has become a movement. Not by playing it safe, but by choosing courage over comfort, clarity over chaos, and purpose over fear. Nicole is a truth-teller, a fire-starter, and a fiercely compassionate guide for leaders and teams who are ready to do the inner work that fuels outer impact. Recognized for transforming leadership and team dynamics through her engaging approach and actionable strategies, Nicole inspires leaders to foster a culture of bravery and authenticity by turning tough conversations into opportunities for growth, and using bravery as a competitive advantage. When the stakes are high and brave leadership is the difference between misalignment and momentum, Nicole is the speaker they call to turn insight into action, and action into measurable results.", "note": "", "url": "https://www.nicolembianchi.com/", "linkText": "Visit Nicole’s website →", "img": "/assets/speakers/nicole-bianchi-full.jpg"}, "speaker-alan-derek-utley": {"role": "Featured Speaker", "name": "Alan Derek Utley", "title": "Founder, RENEW · HR Executive and Keynote Speaker", "full": "Alan Derek Utley is the 2027 Blood Cancer United Visionary of the Year candidate behind the For the Kids campaign and The RENEW Summit. A leadership speaker, HR executive, Gallup-Certified CliftonStrengths® Coach, and founder of Culturate Advisory, Alan has spent more than 25 years helping leaders build stronger teams and healthier workplace cultures.", "note": "For the Kids campaign — $200,000 goal for Blood Cancer United", "url": "https://www.alanderekutley.com/", "linkText": "Visit Alan’s website →", "img": "/assets/speakers/alan-derek-utley.jpg"}, "speaker-lauren-costley": {"role": "Featured Speaker", "name": "Lauren Costley, CPC", "title": "Recruiting Executive and Speaker", "full": "Senior Director of Corporate Services & Training and Development at Deacon Recruiting, Lauren helps professionals navigate opportunities and understand the reputation they build along the way. Deeply connected to the San Antonio business and HR community, she has held leadership roles with SAHRMA, Executive Women International, and other community organizations.", "note": "Longtime supporter of Blood Cancer United — led a successful Woman of the Year campaign and serves on its South Texas Board of Trustees", "url": "https://www.deaconrecruiting.com/", "linkText": "Visit Deacon Recruiting →", "img": "/assets/speakers/lauren-costley.jpg"}, "speaker-laura-suttin": {"role": "Featured Speaker", "name": "Dr. Laura Suttin", "title": "Physician, Executive & Keynote Speaker", "full": "A board-certified family physician, former healthcare executive, organizational consultant, keynote speaker, and author with more than 20 years of clinical and leadership experience. Her work challenges conventional thinking about clinician burnout and helps healthcare organizations address the structural conditions that drive attrition, engagement, and performance.", "note": "", "url": "https://www.drlaurasuttin.com/", "linkText": "Visit Laura’s website →", "img": "/assets/speakers/laura-suttin.jpg"}};
+  if (window.__hscSp) return; window.__hscSp = true;
+  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return; /* phones: tap goes to the RENEW page */
+  var pop = document.getElementById('hsc-sp'); if (!pop) return;
+  document.body.appendChild(pop);
+  var hideT, cur;
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function fill(id) {
+    var s = D[id]; if (!s) return false;
+    pop.innerHTML =
+      '<div class="hsc-sp-top"><img src="' + s.img + '" alt=""><div>' +
+      '<span class="hsc-sp-badge">' + esc(s.role) + '</span>' +
+      '<p class="hsc-sp-name">' + esc(s.name) + '</p><p class="hsc-sp-title">' + esc(s.title) + '</p></div></div>' +
+      '<div class="hsc-sp-body"><p>' + esc(s.full) + '</p>' + (s.note ? '<p class="hsc-sp-note">' + esc(s.note) + '</p>' : '') + '</div>' +
+      '<div class="hsc-sp-links">' + (s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + esc(s.linkText) + '</a>' : '') +
+      '<a href="/renew/#' + id + '">See on the RENEW page</a></div>';
+    pop.setAttribute('aria-label', s.name);
+    return true;
+  }
+  function place(a) {
+    pop.style.display = 'block'; pop.setAttribute('aria-hidden', 'false');
+    var r = a.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, m = 12;
+    var left = Math.min(Math.max(m, r.left), innerWidth - w - m);
+    var top = r.top - h - 10 >= m ? r.top - h - 10 : r.bottom + 10;
+    pop.style.left = (left + scrollX) + 'px'; pop.style.top = (top + scrollY) + 'px';
+    requestAnimationFrame(function () { pop.classList.add('on'); });
+  }
+  function show(a) {
+    clearTimeout(hideT);
+    var id = (a.getAttribute('href') || '').split('#')[1];
+    if (cur !== a) { if (!fill(id)) return; cur = a; }
+    place(a);
+  }
+  function hide(now) {
+    clearTimeout(hideT);
+    hideT = setTimeout(function () { pop.classList.remove('on'); pop.style.display = 'none'; pop.setAttribute('aria-hidden', 'true'); cur = null; }, now ? 0 : 180);
+  }
+  document.querySelectorAll('a[href*="#speaker-"]').forEach(function (a) {
+    if (!D[(a.getAttribute('href') || '').split('#')[1]]) return;
+    a.addEventListener('mouseenter', function () { show(a); });
+    a.addEventListener('mouseleave', function () { hide(); });
+    a.addEventListener('focus', function () { show(a); });
+    a.addEventListener('blur', function () { hide(); });
+  });
+  pop.addEventListener('mouseenter', function () { clearTimeout(hideT); });
+  pop.addEventListener('mouseleave', function () { hide(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(true); });
+  addEventListener('scroll', function () { if (cur && !pop.matches(':hover')) hide(true); }, { passive: true });
+})();
+</script>
+<!-- speaker-pop:end -->
 <script>(function(){if(Date.now()>=Date.parse('2026-11-27T00:00:00-06:00')){document.querySelectorAll('[data-show-from]').forEach(function(e){e.style.display='';});}})();</script>
 </body>
 </html>
