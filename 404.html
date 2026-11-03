@@ -94,6 +94,38 @@ a{color:#14246B}a:hover{color:#0B154A}
 /* keep hero text crisp over the lighter photo */
 #top h1, #top h2, #top p { text-shadow: 0 2px 14px rgba(5, 12, 45, 0.55), 0 1px 3px rgba(5, 12, 45, 0.5); }
 </style>
+<style>
+/* Why attend: icons draw themselves in navy, then turn red; cards react on hover */
+#benefits article { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+#benefits article svg { box-sizing: content-box; padding: 9px; margin: -9px; border-radius: 50%; background: transparent; transition: background 0.25s ease, stroke 0.25s ease; }
+#benefits article:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(20, 36, 107, 0.14); }
+#benefits article:hover svg { stroke: #BD2024; background: #E9ECF6; }
+.hsc-draw-ready > * { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.hsc-drawn > * { stroke-dashoffset: 0; transition: stroke-dashoffset 1.3s ease-in-out var(--hsc-d, 0s); }
+#benefits article svg.hsc-drawn { stroke: #BD2024; transition: stroke 0.7s ease calc(var(--hsc-d, 0s) + 1.3s), background 0.25s ease; }
+@media (prefers-reduced-motion: reduce) { #benefits article, #benefits article:hover { transform: none; transition: none; } }
+</style>
+<script>
+(function () {
+  function go() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sec = document.getElementById('benefits'); if (!sec || !('IntersectionObserver' in window)) return;
+    var icons = sec.querySelectorAll('article svg');
+    icons.forEach(function (svg, i) {
+      Array.prototype.forEach.call(svg.children, function (el) { el.setAttribute('pathLength', '1'); });
+      svg.style.setProperty('--hsc-d', (i * 0.3) + 's');
+      svg.classList.add('hsc-draw-ready');
+    });
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      icons.forEach(function (svg) { svg.classList.add('hsc-drawn'); });
+      io.disconnect();
+    }, { threshold: 0.35 });
+    io.observe(sec.querySelector('article').parentNode);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+})();
+</script>
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
