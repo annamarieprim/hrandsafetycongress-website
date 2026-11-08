@@ -14,6 +14,120 @@
 body{margin:0}
 a{color:#14246B}a:hover{color:#0B154A}
 </style>
+<!-- hsc-chat:start -->
+<style>
+/* HR + Safety Congress question helper (scripted answers only, no AI) */
+#hsc-chat-btn{position:fixed;right:20px;bottom:20px;z-index:70;display:inline-flex;align-items:center;gap:10px;font:700 16px/1 'Public Sans',system-ui,sans-serif;color:#fff;background:var(--hc-main,#14246B);border:2px solid #fff;border-radius:999px;padding:13px 20px 13px 14px;box-shadow:0 10px 26px rgba(11,21,74,.35);cursor:pointer}
+#hsc-chat-btn:hover{filter:brightness(1.12)}
+#hsc-chat-btn:focus-visible,#hsc-chat button:focus-visible,#hsc-chat input:focus-visible,#hsc-chat a:focus-visible{outline:3px solid var(--hc-acc,#C9A227);outline-offset:2px}
+#hsc-chat-btn svg{flex:0 0 auto}
+#hsc-chat{position:fixed;right:20px;bottom:86px;z-index:71;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100vh - 120px));display:none;flex-direction:column;background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(11,21,74,.35);overflow:hidden;font:400 15px/1.5 'Public Sans',system-ui,sans-serif;color:#1E2433}
+#hsc-chat.open{display:flex}
+#hsc-chat .hc-head{background:var(--hc-main,#14246B);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:3px solid var(--hc-acc,#C9A227)}
+#hsc-chat .hc-head b{display:block;font-size:16px}
+#hsc-chat .hc-head span{font-size:13px;opacity:.85}
+#hsc-chat .hc-x{background:none;border:0;color:#fff;font-size:24px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:6px}
+#hsc-chat .hc-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#F5F7FB}
+#hsc-chat .hc-msg{max-width:88%;padding:10px 13px;border-radius:12px;white-space:pre-line}
+#hsc-chat .hc-bot{background:#fff;border:1px solid #DDE2EE;align-self:flex-start;border-bottom-left-radius:4px}
+#hsc-chat .hc-me{background:var(--hc-main,#14246B);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+#hsc-chat .hc-bot a{color:var(--hc-link,#14246B);font-weight:700}
+#hsc-chat .hc-chips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+#hsc-chat .hc-chips button{font:600 13px/1.2 'Public Sans',system-ui,sans-serif;color:var(--hc-link,#14246B);background:#fff;border:1.5px solid var(--hc-link,#14246B);border-radius:999px;padding:7px 11px;cursor:pointer}
+#hsc-chat .hc-chips button:hover{background:var(--hc-main,#14246B);color:#fff}
+#hsc-chat form{display:flex;gap:8px;padding:10px;border-top:1px solid #DDE2EE;background:#fff}
+#hsc-chat input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:1px solid #9AA3B8;border-radius:8px}
+#hsc-chat form button{font:700 14px 'Public Sans',system-ui,sans-serif;color:#fff;background:var(--hc-main,#14246B);border:0;border-radius:8px;padding:0 14px;cursor:pointer}
+#hsc-chat .hc-note{font-size:11px;color:#6B7488;text-align:center;padding:0 10px 8px;background:#fff}
+@media (max-width:600px){#hsc-chat-btn{right:12px;bottom:12px;width:52px;height:52px;padding:0;justify-content:center}#hsc-chat-btn span{position:absolute;left:-9999px}#hsc-chat{right:12px;bottom:72px}}
+</style>
+<script>
+(function () {
+  if (window.__hscChat) return; window.__hscChat = true;
+  var L = { renew: '/renew/', wait: '/renew/#subscribe', reg: '/register/', tt: '/register/#tabletalks', credits: '/#credits',
+    speak: '/speak/', sponsor: '/sponsor/', sub: '/subscribe/', terms: '/termsofuse/', speakers: '/renew/#headliners' };
+  function a(href, text) { return '<a href="' + href + '">' + text + '</a>'; }
+  var MAIL = '<a href="mailto:info@hrandsafetycongress.com">info@hrandsafetycongress.com</a>';
+  var A = {
+    when: 'RENEW. is on Friday, May 21, 2027, from 8:00 AM to 1:00 PM CT. Doors open at 7:30 AM.\n\n' + a(L.renew, 'See the RENEW. details'),
+    where: 'RENEW. is at The Whitley Event Center, 285 Oblate Drive, San Antonio, TX 78216. Parking is free on site.',
+    tickets: 'Tickets for RENEW. are $150 and go on sale April 1, 2027.\n\nJoin the free waiting list now and you’ll get the registration link the day sales open: ' + a(L.wait, 'Join the waiting list'),
+    refund: 'Refunds, transfers and substitutions follow the terms shown at registration. For a specific question, please email ' + MAIL + '.\n\n' + a(L.terms, 'Read our Terms of Use'),
+    cause: 'Every $150 RENEW. ticket is donated to Blood Cancer United through the For the Kids campaign, which has a $200,000 goal.',
+    speakers: 'RENEW. features host Steve Multer, keynote speaker Nicole Bianchi, and featured speakers Alan Derek Utley, Lauren Costley and Dr. Laura Suttin.\n\n' + a(L.speakers, 'Meet the speakers'),
+    credits: 'HR + Safety Congress is recognized by SHRM to offer PDCs and is an HRCI Recertification Provider. Credits are based on actual instructional time and are listed with each eligible event. Attendees who complete the program receive a certificate of attendance with the credit details.\n\n' + a(L.credits, 'Recertification credit information'),
+    tabletalks: 'The Emergency Preparedness Table Talks are a virtual series on Zoom. Dates are coming soon. Register now and we’ll email your Zoom link and session dates once they’re announced.\n\n' + a(L.tt, 'Register for Table Talks'),
+    speak: 'We’d love to hear from you! Apply to speak here: ' + a(L.speak, 'Speaker application'),
+    sponsor: 'Thank you for your interest in sponsoring! Start here: ' + a(L.sponsor, 'Sponsor application') + '\n\nOr email ' + MAIL + '.',
+    subscribe: 'Get event news, dates and early registration by joining our email list: ' + a(L.sub, 'Subscribe'),
+    contact: 'You can reach our team at ' + MAIL + '. We’re happy to help!',
+    what: 'RENEW. is a half-day, in-person leadership experience for HR professionals: a morning to step away, reconnect and grow, with practical takeaways.\n\n' + a(L.renew, 'Learn more about RENEW.'),
+    thanks: 'You’re welcome! Anything else I can help with?'
+  };
+  var K = [
+    ['refund', /refund|cancel|transfer|substitut|money back/],
+    ['tabletalks', /table ?talk|virtual|zoom|online|webinar|emergency prep/],
+    ['credits', /credit|shrm|hrci|pdc|ceu|recert|certificate|bcsp|csp\b|asp\b/],
+    ['tickets', /ticket|price|cost|how much|\$|buy|purchase|register|registration|sign ?up|waiting ?list|wait ?list/],
+    ['when', /when|date|time|what day|schedule|start|doors|may 21|hour/],
+    ['where', /where|venue|location|address|parking|park\b|whitley|san antonio|directions/],
+    ['cause', /cause|charity|donat|blood|cancer|for the kids|benefit|200,?000/],
+    ['speakers', /speaker|keynote|host|who.*(speak|present)|nicole|steve|alan|lauren|laura/],
+    ['speak', /\bspeak\b|present|apply to speak|call for|be a speaker/],
+    ['sponsor', /sponsor|partner|exhibit|vendor/],
+    ['subscribe', /subscribe|newsletter|email list|mailing|updates|news/],
+    ['contact', /contact|email|phone|call|human|person|talk to|help/],
+    ['what', /what is renew|about renew|renew\b|what is this|who is this for/],
+    ['thanks', /thank|thx|great|perfect|awesome/]
+  ];
+  var CHIPS = [['When and where is RENEW?', 'when'], ['Tickets', 'tickets'], ['SHRM & HRCI credits', 'credits'], ['Table Talks', 'tabletalks'], ['Speakers', 'speakers'], ['Contact us', 'contact']];
+  function build() {
+    var green = /^\/renew\//.test(location.pathname);
+    var root = document.documentElement;
+    root.style.setProperty('--hc-main', green ? '#0F3E2D' : '#14246B');
+    root.style.setProperty('--hc-acc', green ? '#D5A939' : '#C9A227');
+    root.style.setProperty('--hc-link', green ? '#0F3E2D' : '#14246B');
+    var btn = document.createElement('button');
+    btn.id = 'hsc-chat-btn'; btn.type = 'button'; btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'hsc-chat');
+    btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"></path></svg><span>Questions?</span>';
+    var box = document.createElement('div');
+    box.id = 'hsc-chat'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'HR + Safety Congress questions');
+    box.innerHTML = '<div class="hc-head"><div><b>HR + Safety Congress</b><span>Quick answers about our events</span></div><button type="button" class="hc-x" aria-label="Close">&times;</button></div>' +
+      '<div class="hc-log" aria-live="polite"></div>' +
+      '<form><label for="hc-q" style="position:absolute;left:-9999px">Type your question</label><input id="hc-q" type="text" autocomplete="off" placeholder="Type a question…"><button type="submit">Ask</button></form>' +
+      '<div class="hc-note">Automated answers. For anything else, email info@hrandsafetycongress.com</div>';
+    if (green) { var mb = document.getElementById('renew-music-btn'); if (mb) { btn.style.bottom = (window.innerWidth < 600 ? 70 : 92) + 'px'; box.style.bottom = (window.innerWidth < 600 ? 130 : 158) + 'px'; } }
+    document.body.appendChild(btn); document.body.appendChild(box);
+    var log = box.querySelector('.hc-log'), input = box.querySelector('input'), started = false;
+    function msg(html, me) { var d = document.createElement('div'); d.className = 'hc-msg ' + (me ? 'hc-me' : 'hc-bot'); if (me) d.textContent = html; else d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; }
+    function chips() {
+      var c = document.createElement('div'); c.className = 'hc-chips';
+      CHIPS.forEach(function (x) { var b = document.createElement('button'); b.type = 'button'; b.textContent = x[0]; b.addEventListener('click', function () { ask(x[0], x[1]); }); c.appendChild(b); });
+      log.appendChild(c); log.scrollTop = log.scrollHeight;
+    }
+    function ask(text, key) {
+      msg(text, true);
+      if (!key) { var q = text.toLowerCase(); for (var i = 0; i < K.length; i++) if (K[i][1].test(q)) { key = K[i][0]; break; } }
+      setTimeout(function () {
+        msg(key ? A[key] : 'I’m not sure about that one. Please email ' + MAIL + ' and our team will help. Or try one of these:');
+        if (!key || key === 'thanks') chips();
+      }, 350);
+    }
+    function open() {
+      box.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+      if (!started) { started = true; msg('Hi! I can answer quick questions about RENEW., tickets, recertification credits and our virtual Table Talks. What would you like to know?'); chips(); }
+      setTimeout(function () { input.focus(); }, 50);
+    }
+    function close() { box.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+    btn.addEventListener('click', function () { box.classList.contains('open') ? close() : open(); });
+    box.querySelector('.hc-x').addEventListener('click', close);
+    box.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    box.querySelector('form').addEventListener('submit', function (e) { e.preventDefault(); var v = input.value.trim(); if (!v) return; input.value = ''; ask(v); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
+<!-- hsc-chat:end -->
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
