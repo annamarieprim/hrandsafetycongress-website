@@ -36,7 +36,121 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 .disc{margin:10px 0 0;padding:10px 12px;background:#F7F3E6;border-radius:4px;font-size:14px;line-height:1.5;color:#4A4026}
 .fine p{margin:10px 0 0;font-size:15px;color:#4A5A53}
 .unused-tag{position:sticky;top:0;z-index:5;background:#D5A939;color:#082B1E;text-align:center;font-size:14px;font-weight:700;padding:6px}
+
+/* decor: gold running track, badge shimmer, connected steps */
+@property --rs-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes rsTrace { to { --rs-a: 360deg; } }
+.rs-trace { position: relative; isolation: isolate; display: inline-block; }
+.rs-trace::before { content: ''; position: absolute; inset: -4px; border-radius: 7px; padding: 2px; background: conic-gradient(from var(--rs-a), rgba(213,169,57,.18) 0deg 215deg, rgba(213,169,57,.55) 280deg, #F3DA8A 330deg, #FFFFFF 348deg, rgba(213,169,57,.18) 360deg); filter: drop-shadow(0 0 4px rgba(213,169,57,.7)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: rsTrace 3.4s linear infinite; pointer-events: none; }
+.badge { position: relative; overflow: hidden; }
+.badge::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 45%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.75), transparent); transform: skewX(-18deg); animation: rsShine 4.5s ease-in-out infinite; }
+@keyframes rsShine { 0%, 62% { left: -60%; } 100% { left: 130%; } }
+.steps { position: relative; }
+.steps li { position: relative; z-index: 1; }
+.steps li::before { transition: background .5s ease, color .5s ease, box-shadow .5s ease; }
+.steps.lit li::before { background: #D5A939; color: #082B1E; box-shadow: 0 0 0 5px rgba(213,169,57,.22); }
+.steps.lit li:nth-child(1)::before { transition-delay: .1s; }
+.steps.lit li:nth-child(2)::before { transition-delay: .55s; }
+.steps.lit li:nth-child(3)::before { transition-delay: 1s; }
+.steps.lit li:nth-child(4)::before { transition-delay: 1.45s; }
+@media (min-width: 1060px) {
+  .steps::after { content: ''; position: absolute; z-index: 0; left: 40px; top: 40px; height: 3px; width: 0; border-radius: 2px; background: linear-gradient(90deg, #D5A939, #F3DA8A); transition: width 1.6s ease; }
+  .steps.lit::after { width: calc(100% - 80px); }
+}
+@media (prefers-reduced-motion: reduce) { .rs-trace::before, .badge::after { animation: none; } .badge::after { display: none; } .steps li::before, .steps::after { transition: none; } }
 </style>
+<script>
+/* RENEW sponsorship: a few eucalyptus leaves drift gently in the hero */
+(function () {
+  if (window.__rsLeaves) return; window.__rsLeaves = true;
+  var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
+  function zone(el, opts) {
+    if (!el) return;
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    var c = document.createElement('canvas');
+    c.setAttribute('aria-hidden', 'true');
+    c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5';
+    el.appendChild(c);
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, visible = false;
+    function size() { W = c.width = el.clientWidth * dpr; H = c.height = el.clientHeight * dpr; }
+    size(); addEventListener('resize', size); setTimeout(size, 1500);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(el); else visible = true;
+    var leaves = [], MAX = innerWidth < 700 ? opts.maxM : opts.max, next = 0;
+    function spawn(t, initial) {
+      var s = (opts.min + Math.random() * (opts.maxS - opts.min)) * dpr, p;
+      if (opts.across) {
+        /* menu bar: leaves float sideways on a light breeze */
+        p = { x: initial ? Math.random() * W : W + s * 2, y: H * (0.2 + Math.random() * 0.6), vx: -(0.25 + Math.random() * 0.3) * dpr, vy: 0,
+          sway: (4 + Math.random() * 6) * dpr };
+      } else {
+        p = { x: Math.random() * W, y: initial ? Math.random() * H * 0.6 : -s * 2, vx: 0, vy: (0.35 + Math.random() * 0.45) * dpr,
+          sway: (18 + Math.random() * 30) * dpr };
+      }
+      p.s = s; p.ph = Math.random() * 6.28; p.sp = 0.006 + Math.random() * 0.006; p.r = Math.random() * 6.28;
+      p.vr = (Math.random() - 0.5) * 0.012; p.flip = Math.random() * 6.28; p.c = greens[Math.floor(Math.random() * greens.length)];
+      p.a = opts.alpha + Math.random() * 0.25; p.off = 0;
+      leaves.push(p); next = t + opts.gap + Math.random() * opts.gap * 1.5;
+    }
+    function draw(p) {
+      var s = p.s, w = s * 0.62 * (0.35 + 0.65 * Math.abs(Math.cos(p.flip)));
+      ctx.save();
+      if (opts.across) ctx.translate(p.x, p.y + p.off); else ctx.translate(p.x + p.off, p.y);
+      ctx.rotate(p.r); ctx.globalAlpha = p.a;
+      ctx.beginPath(); ctx.moveTo(0, -s);
+      ctx.bezierCurveTo(w, -s * 0.55, w, s * 0.55, 0, s);
+      ctx.bezierCurveTo(-w, s * 0.55, -w, -s * 0.55, 0, -s);
+      ctx.fillStyle = p.c; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = Math.max(1, dpr * 0.8);
+      ctx.beginPath(); ctx.moveTo(0, -s * 0.85); ctx.quadraticCurveTo(w * 0.15, 0, 0, s * 0.85); ctx.stroke();
+      ctx.strokeStyle = p.c; ctx.lineWidth = Math.max(1, dpr); ctx.beginPath(); ctx.moveTo(0, s); ctx.lineTo(0, s * 1.25); ctx.stroke();
+      ctx.restore();
+    }
+    var t0 = performance.now(); for (var k = 0; k < opts.start; k++) spawn(t0, true);
+    (function frame(t) {
+      if (!document.hidden && visible) {
+        ctx.clearRect(0, 0, W, H);
+        if (t > next && leaves.length < MAX) spawn(t, false);
+        for (var i = leaves.length - 1; i >= 0; i--) {
+          var p = leaves[i];
+          p.ph += p.sp; p.x += p.vx; p.y += p.vy; p.off = Math.sin(p.ph) * p.sway; p.r += p.vr + Math.cos(p.ph) * 0.004; p.flip += 0.012;
+          if (p.y > H + p.s * 2 || p.x < -p.s * 3) { leaves.splice(i, 1); continue; }
+          draw(p);
+        }
+      }
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+  function start() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    zone(document.getElementById('rs-hero'), { max: 5, maxM: 3, start: 2, gap: 2600, min: 14, maxS: 26, alpha: 0.45 });
+  }
+  if (document.readyState === 'complete') start(); else addEventListener('load', start);
+})();
+</script>
+<script>
+/* RENEW sponsorship: count up the campaign goal, light up the How it works steps */
+(function () {
+  if (window.__rsDecor) return; window.__rsDecor = true;
+  function go() {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var g = document.getElementById('rs-goal');
+    if (g && !reduce) {
+      var end = 200000, t0 = null, dur = 1800;
+      g.style.display = 'inline-block'; g.style.minWidth = g.offsetWidth + 'px';
+      g.textContent = '$0';
+      (function step(t) { if (!t0) t0 = t; var k = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - k, 3);
+        g.textContent = '$' + Math.round(end * e).toLocaleString('en-US'); if (k < 1) requestAnimationFrame(step); })(performance.now());
+      requestAnimationFrame(function (t) { t0 = t; });
+    }
+    var st = document.getElementById('rs-steps');
+    if (st) {
+      if (reduce || !('IntersectionObserver' in window)) { st.classList.add('lit'); return; }
+      new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { st.classList.add('lit'); o.disconnect(); } }, { threshold: 0.45 }).observe(st);
+    }
+  }
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+})();
+</script>
 </head>
 <body>
 <div class="rs">
@@ -49,7 +163,7 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 <a href="/renew/" style="font-weight: 600; font-size: 16px; padding: 10px 0;">About RENEW.</a>
 </div>
 </header>
-<section style="background: #0F3E2D; color: #FFFFFF;">
+<section id="rs-hero" style="background: #0F3E2D; color: #FFFFFF;">
 <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px;">
 <p style="margin: 0 0 14px; display: inline-block; font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 3px solid #D5A939; padding-bottom: 6px;">Sponsorship opportunities</p>
 <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; max-width: 900px;">Sponsor RENEW<span style="color: #D5A939;">.</span></h1>
@@ -57,7 +171,7 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 <dl style="margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 14px 40px; font-size: 16px;">
 <div><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #BFD3CA;">Date</dt><dd style="margin: 2px 0 0; font-weight: 700;">Friday, May 21, 2027</dd></div>
 <div><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #BFD3CA;">Venue</dt><dd style="margin: 2px 0 0; font-weight: 700;">The Whitley Event Center, San Antonio</dd></div>
-<div><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #BFD3CA;">Campaign goal</dt><dd style="margin: 2px 0 0; font-weight: 700;">$200,000 for Blood Cancer United</dd></div>
+<div><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #BFD3CA;">Campaign goal</dt><dd style="margin: 2px 0 0; font-weight: 700;"><span id="rs-goal">$200,000</span> for Blood Cancer United</dd></div>
 </dl>
 </div>
 </section>
@@ -81,7 +195,7 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 <p class="small">Recognized on the HR + Safety Congress LLC RENEW. event website and social media. The value and benefits are agreed in writing before the event.</p>
 <a class="btn" href="/sponsor/">Apply to sponsor</a></article></div></section>
 <section style="background:#F3F7F5"><div class="wrap"><p class="eyebrow">How it works</p><h2>From form to payment</h2>
-<ol class="steps"><li>Before any recognition or advertising, sponsors complete the HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup> sponsor form and sponsorship agreement</li><li>Form and agreement must be signed before benefits and logo use</li><li>HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup> will send the payment information link</li><li>Payment due on April 1, 2027</li></ol>
+<ol class="steps" id="rs-steps"><li>Before any recognition or advertising, sponsors complete the HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup> sponsor form and sponsorship agreement</li><li>Form and agreement must be signed before benefits and logo use</li><li>HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup> will send the payment information link</li><li>Payment due on April 1, 2027</li></ol>
 <p style="margin:16px 0 0;font-size:16px;color:#33443D">Counts toward the For the Kids campaign goal.</p></div></section>
 <section class="wrap"><p class="eyebrow">How contributions are handled</p><h2>Where your sponsorship goes</h2>
 <div class="grid">
@@ -98,7 +212,7 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(1.8rem, 3.2vw, 2.4rem); color: #0F3E2D;">Ready to partner with us?</h2>
 <p style="margin: 12px auto 0; max-width: 620px; color: #33443D;">All sponsors complete our sponsor form and a sponsorship agreement. After your sponsorship is confirmed, you’ll receive a link with payment information after April 1, 2027.</p>
 <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;">
-<a href="/sponsor/" style="background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 30px; border-radius: 4px; font-weight: 700; font-size: 17px;">Start the sponsor form</a>
+<a href="/sponsor/" class="rs-trace" style="background: #D5A939; color: #082B1E; text-decoration: none; padding: 15px 30px; border-radius: 4px; font-weight: 700; font-size: 17px;">Start the sponsor form</a>
 <a href="mailto:info@hrandsafetycongress.com?subject=RENEW.%20sponsorship" style="color: #0F3E2D; text-decoration: none; padding: 13px 28px; border-radius: 4px; font-weight: 700; font-size: 17px; border: 2px solid #0F3E2D;">Email us</a>
 </div>
 </div>
