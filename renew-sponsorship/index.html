@@ -48,15 +48,10 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 .steps { position: relative; }
 .steps li { position: relative; z-index: 1; }
 .steps li::before { transition: background .5s ease, color .5s ease, box-shadow .5s ease; }
-.steps.lit li::before { background: #D5A939; color: #082B1E; box-shadow: 0 0 0 5px rgba(213,169,57,.22); }
-.steps.lit li:nth-child(1)::before { transition-delay: .1s; }
-.steps.lit li:nth-child(2)::before { transition-delay: .55s; }
-.steps.lit li:nth-child(3)::before { transition-delay: 1s; }
-.steps.lit li:nth-child(4)::before { transition-delay: 1.45s; }
-@media (min-width: 1060px) {
-  .steps::after { content: ''; position: absolute; z-index: 0; left: 40px; top: 40px; height: 3px; width: 0; border-radius: 2px; background: linear-gradient(90deg, #D5A939, #F3DA8A); transition: width 1.6s ease; }
-  .steps.lit::after { width: calc(100% - 80px); }
-}
+.steps li.on::before { background: #D5A939; color: #082B1E; box-shadow: 0 0 0 5px rgba(213,169,57,.22); }
+.steps::after { content: ''; position: absolute; z-index: 0; left: 40px; top: 40px; height: 3px; width: var(--rs-line, 0px); border-radius: 2px; background: linear-gradient(90deg, #D5A939, #F3DA8A); display: none; }
+.rs-leaf { position: absolute; z-index: 2; left: 0; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; pointer-events: none; opacity: 0; transition: opacity .5s ease; filter: drop-shadow(0 0 6px rgba(243,218,138,.9)); }
+@media (min-width: 1060px) { .steps::after { display: block; } }
 @media (prefers-reduced-motion: reduce) { .rs-trace::before, .badge::after { animation: none; } .badge::after { display: none; } .steps li::before, .steps::after { transition: none; } }
 </style>
 <script>
@@ -143,14 +138,104 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
       requestAnimationFrame(function (t) { t0 = t; });
     }
     var st = document.getElementById('rs-steps');
-    if (st) {
-      if (reduce || !('IntersectionObserver' in window)) { st.classList.add('lit'); return; }
-      new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { st.classList.add('lit'); o.disconnect(); } }, { threshold: 0.45 }).observe(st);
+    if (!st) return;
+    var lis = st.querySelectorAll('li');
+    function lightAll() { for (var i = 0; i < lis.length; i++) lis[i].classList.add('on'); st.style.setProperty('--rs-line', 'calc(100% - 80px)'); }
+    if (reduce || !('IntersectionObserver' in window)) { lightAll(); return; }
+    function run() {
+      var wide = innerWidth >= 1060;
+      if (!wide) { /* phones: numbers light one after another */
+        for (var i = 0; i < lis.length; i++) (function (li, d) { setTimeout(function () { li.classList.add('on'); }, d); })(lis[i], 150 + i * 450);
+        return;
+      }
+      /* desktop: a small gold leaf travels the line from 1 to 4, lighting each number as it arrives */
+      var xs = [], y0 = lis[0].offsetTop + 41;
+      for (var i = 0; i < lis.length; i++) xs.push(lis[i].offsetLeft + 41);
+      var leaf = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      leaf.setAttribute('viewBox', '0 0 26 26'); leaf.setAttribute('class', 'rs-leaf'); leaf.setAttribute('aria-hidden', 'true');
+      leaf.innerHTML = '<path d="M4 22 C4 11 11 4 22 4 C22 15 15 22 4 22 Z" fill="#D5A939"/><path d="M5 21 L19 7" stroke="#FFF4CC" stroke-width="1.4" stroke-linecap="round"/>';
+      st.appendChild(leaf);
+      var x0 = xs[0], x1 = xs[xs.length - 1], dur = 2600, t0 = null, lit = 0;
+      lis[0].classList.add('on'); lit = 1;
+      requestAnimationFrame(function () { leaf.style.opacity = '1'; });
+      (function step(t) {
+        if (!t0) t0 = t;
+        var k = Math.min((t - t0) / dur, 1), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        var x = x0 + (x1 - x0) * e, bob = Math.sin(k * Math.PI * 6) * 3;
+        leaf.style.transform = 'translate(' + x + 'px,' + (y0 + bob) + 'px) rotate(' + (Math.sin(k * Math.PI * 4) * 18) + 'deg)';
+        st.style.setProperty('--rs-line', (x - 40) + 'px');
+        while (lit < xs.length && x >= xs[lit] - 2) { lis[lit].classList.add('on'); lit++; }
+        if (k < 1) requestAnimationFrame(step);
+        else { st.style.setProperty('--rs-line', 'calc(100% - 80px)'); setTimeout(function () { leaf.style.opacity = '0'; }, 500); setTimeout(function () { leaf.remove(); }, 1200); }
+      })(performance.now());
     }
+    new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { o.disconnect(); setTimeout(run, 250); } }, { threshold: 0.5 }).observe(st);
   }
   if (document.readyState === 'complete') go(); else addEventListener('load', go);
 })();
 </script>
+<!-- renew-thermo:css:start -->
+<style>
+.rt { --rt-p: 0%; --rt-r: 0%; }
+.rt.rt-on { --rt-p: var(--rt-pt); --rt-r: var(--rt-rt); }
+.rt-v { display: inline-grid; grid-template-columns: auto 40px auto; grid-template-rows: auto 1fr; gap: 0 14px; color: #FFFFFF; font-family: inherit; }
+.rt-v .rt-head { grid-column: 1 / -1; margin: 0 0 14px; }
+.rt-v .rt-k { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #BFD3CA; }
+.rt-v .rt-goal { margin: 2px 0 0; font-weight: 800; font-size: 30px; line-height: 1.1; color: #FFFFFF; }
+.rt-v .rt-goal span { color: #D5A939; }
+.rt-ticks { position: relative; width: 40px; height: 230px; font-size: 12px; color: #BFD3CA; }
+.rt-ticks span { position: absolute; right: 0; transform: translateY(50%); white-space: nowrap; }
+.rt-tube-wrap { position: relative; width: 40px; height: 290px; }
+.rt-tube { position: absolute; left: 7px; top: 0; width: 26px; height: 236px; border-radius: 13px 13px 0 0; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.4); border-bottom: 0; overflow: hidden; }
+.rt-fill { position: absolute; left: 0; right: 0; bottom: 0; transition: height 1.8s cubic-bezier(.22,.8,.3,1); }
+.rt-fill.p { height: var(--rt-p); background: repeating-linear-gradient(135deg, rgba(213,169,57,.55) 0 6px, rgba(213,169,57,.32) 6px 12px); }
+.rt-fill.r { height: var(--rt-r); background: linear-gradient(90deg, #C99A2E, #F3DA8A 55%, #D5A939); transition-delay: .3s; }
+.rt-bulb { position: absolute; left: 0; bottom: 0; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F3DA8A, #D5A939 60%, #A97E1E); border: 2px solid rgba(255,255,255,.4); box-shadow: 0 0 14px rgba(213,169,57,.45); }
+.rt-bulb::before { content: ''; position: absolute; left: 7px; top: -14px; width: 22px; height: 20px; background: #D5A939; }
+.rt-tick { position: absolute; left: 30px; width: 10px; height: 2px; background: rgba(255,255,255,.4); }
+.rt-legend { align-self: center; display: flex; flex-direction: column; gap: 16px; font-size: 15px; }
+.rt-legend p { margin: 0; line-height: 1.3; }
+.rt-legend b { display: block; font-size: 24px; font-weight: 800; color: #FFFFFF; }
+.rt-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+.rt-sw.r { background: linear-gradient(90deg, #C99A2E, #F3DA8A); }
+.rt-sw.p { background: repeating-linear-gradient(135deg, rgba(213,169,57,.85) 0 3px, rgba(213,169,57,.45) 3px 6px); }
+.rt-legend .rt-lbl { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #BFD3CA; }
+.rt-legend .rt-note { font-size: 13px; color: #BFD3CA; }
+.rt-h { margin: 18px 0 0; max-width: 460px; padding: 14px 16px; border-radius: 6px; background: #F5F7FB; color: #14246B; font-size: 14px; }
+.rt-h .rt-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; align-items: baseline; }
+.rt-h .rt-k { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #6B7488; }
+.rt-h .rt-bar { position: relative; margin: 8px 0 6px; height: 12px; border-radius: 6px; background: #DDE2EE; overflow: hidden; }
+.rt-h .rt-fill.p { background: repeating-linear-gradient(135deg, rgba(20,36,107,.42) 0 6px, rgba(20,36,107,.26) 6px 12px); }
+.rt-h .rt-fill { top: 0; bottom: 0; left: 0; right: auto; height: auto; transition: width 1.8s cubic-bezier(.22,.8,.3,1); }
+.rt-h .rt-fill.p { width: var(--rt-p); } .rt-h .rt-fill.r { width: var(--rt-r); background: #14246B; transition-delay: .3s; }
+.rt-h .rt-sw.p { background: repeating-linear-gradient(135deg, rgba(20,36,107,.6) 0 3px, rgba(20,36,107,.3) 3px 6px); } .rt-h .rt-sw.r { background: #14246B; }
+.rt-h .rt-legend-h { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 13px; color: #3A4256; }
+@media (prefers-reduced-motion: reduce) { .rt-fill { transition: none !important; } }
+</style>
+<script>
+(function () {
+  if (window.__rtInit) return; window.__rtInit = true;
+  function go() {
+    var els = document.querySelectorAll('.rt');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function on(el) {
+      el.classList.add('rt-on');
+      if (reduce) return;
+      el.querySelectorAll('[data-rt-n]').forEach(function (n) {
+        var end = +n.getAttribute('data-rt-n'); if (!end) return; var t0 = null;
+        (function s(t) { if (!t0) t0 = t; var k = Math.min((t - t0) / 1800, 1), e = 1 - Math.pow(1 - k, 3);
+          n.textContent = '$' + Math.round(end * e).toLocaleString('en-US'); if (k < 1) requestAnimationFrame(s); })(performance.now());
+      });
+    }
+    els.forEach(function (el) {
+      if (reduce || !('IntersectionObserver' in window)) return on(el);
+      new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { o.disconnect(); setTimeout(function () { on(el); }, 200); } }, { threshold: .4 }).observe(el);
+    });
+  }
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+})();
+</script>
+<!-- renew-thermo:css:end -->
 </head>
 <body>
 <div class="rs">
@@ -165,6 +250,8 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 </header>
 <section id="rs-hero" style="background: #0F3E2D; color: #FFFFFF;">
 <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px;">
+<div style="display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: center; justify-content: space-between;">
+<div style="flex: 1 1 520px; min-width: 0;">
 <p style="margin: 0 0 14px; display: inline-block; font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 3px solid #D5A939; padding-bottom: 6px;">Sponsorship opportunities</p>
 <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; max-width: 900px;">Sponsor RENEW<span style="color: #D5A939;">.</span></h1>
 <p style="margin: 16px 0 0; max-width: 720px; font-size: 20px; color: #DCE8E2;">A half-day leadership experience for HR, presented by HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup>, benefiting Blood Cancer United through the For the Kids campaign.</p>
@@ -174,17 +261,32 @@ ul.b li{display:flex;gap:10px;align-items:baseline} .d{flex:0 0 7px;height:7px;b
 <div><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #BFD3CA;">Campaign goal</dt><dd style="margin: 2px 0 0; font-weight: 700;"><span id="rs-goal">$200,000</span> for Blood Cancer United</dd></div>
 </dl>
 </div>
+<div style="flex: 0 0 auto; position: relative; z-index: 6;">
+<!-- renew-thermo:vertical:start -->
+<div class="rt rt-v" role="img" aria-label="RENEW. campaign: $10,000 pledged, $0 received, goal $30,000" style="--rt-pt: 33.33%; --rt-rt: 0.00%;">
+<div class="rt-head"><p class="rt-k">RENEW<span style="color: #D5A939;">.</span> campaign goal</p><p class="rt-goal">$30,000</p></div>
+<div class="rt-ticks" style="height: 290px;"><div style="position: absolute; left: 0; right: 0; top: 0; height: 236px;"><span style="bottom: 78.7px;">$10K</span><span style="bottom: 157.3px;">$20K</span><span style="bottom: 236.0px;">$30K</span></div></div>
+<div class="rt-tube-wrap"><div class="rt-tube"><div class="rt-fill p"></div><div class="rt-fill r"></div></div><i class="rt-tick" style="bottom: 131.7px;"></i><i class="rt-tick" style="bottom: 210.3px;"></i><div class="rt-bulb"></div></div>
+<div class="rt-legend">
+<p><span class="rt-lbl"><i class="rt-sw p"></i>Pledged</span><b data-rt-n="10000">$10,000</b></p>
+<p><span class="rt-lbl"><i class="rt-sw r"></i>Received</span><b data-rt-n="0">$0</b><span class="rt-note">Payments begin April 1, 2027</span></p>
+</div>
+</div>
+<!-- renew-thermo:vertical:end -->
+</div>
+</div>
+</div>
 </section>
 
 
 <section class="wrap"><p class="eyebrow">Sponsorship levels</p><h2>Choose your level</h2><div class="grid"><article class="card feat"><span class="badge">Exclusive · 1 available</span><div><h3>Platinum Presenting Sponsor</h3><p class="price">$10,000</p></div>
-<ul class="b"><li><span class="d"></span><span>Top billing as Platinum Presenting Sponsor of RENEW., presented by HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup></span></li><li><span class="d"></span><span>Premier logo placement on the HR + Safety Congress LLC RENEW. event website and promotional materials</span></li><li><span class="d"></span><span>Dedicated on-stage recognition</span></li><li><span class="d"></span><span>Optional 1–2 minute welcome to attendees</span></li><li><span class="d"></span><span>Preferred placement in Sponsor Alley with an exhibitor table</span></li><li><span class="d"></span><span>6 event registrations</span></li><li><span class="d"></span><span>Additional recognition at the Visionaries of the Year Grand Finale <em>(details being confirmed with Blood Cancer United)</em></span></li></ul>
+<ul class="b"><li><span class="d"></span><span>Top billing as Platinum Presenting Sponsor of RENEW., presented by HR + Safety Congress<sup style="font-size:0.5em;vertical-align:super;line-height:0;margin-left:0.05em;">TM</sup></span></li><li><span class="d"></span><span>Premier logo placement on the HR + Safety Congress LLC RENEW. event website and promotional materials</span></li><li><span class="d"></span><span>Dedicated on-stage recognition</span></li><li><span class="d"></span><span>Optional 1–2 minute welcome to attendees</span></li><li><span class="d"></span><span>Preferred placement in Sponsor Alley with an exhibitor table</span></li><li><span class="d"></span><span>6 event registrations</span></li><li><span class="d"></span><span>Additional recognition at the Visionaries of the Year Grand Finale <em>(details being confirmed with Blood Cancer United)</em></span></li><li><span class="d"></span><span>$10,000 must be paid to Blood Cancer United to receive Visionaries of the Year benefits</span></li><li><span class="d"></span><span>On April 1, 2027, donations of $2,500 and above must complete a Blood Cancer United form to receive Visionaries of the Year benefits</span></li></ul>
 <p class="pay">Paid directly to Blood Cancer United<span style="color:#B8860B;font-weight:700;">*</span> and counts toward the For the Kids campaign<br>Sponsorship must be approved by HR + Safety Congress, LLC<br>Payment due on April 1, 2027</p>
 <a class="btn" href="/sponsor/">Apply to sponsor</a></article><article class="card"><div><h3>Gold Sponsor</h3><p class="price">$5,000</p></div>
-<ul class="b"><li><span class="d"></span><span>Prominent logo placement on the HR + Safety Congress LLC RENEW. event website and promotional materials</span></li><li><span class="d"></span><span>On-stage sponsor recognition</span></li><li><span class="d"></span><span>Sponsor Alley exhibitor table</span></li><li><span class="d"></span><span>4 event registrations</span></li></ul>
+<ul class="b"><li><span class="d"></span><span>Prominent logo placement on the HR + Safety Congress LLC RENEW. event website and promotional materials</span></li><li><span class="d"></span><span>On-stage sponsor recognition</span></li><li><span class="d"></span><span>Sponsor Alley exhibitor table</span></li><li><span class="d"></span><span>4 event registrations</span></li><li><span class="d"></span><span>On April 1, 2027, donations of $2,500 and above must complete a Blood Cancer United form to receive Visionaries of the Year benefits</span></li></ul>
 <p class="pay">Paid directly to Blood Cancer United<span style="color:#B8860B;font-weight:700;">*</span> and counts toward the For the Kids campaign<br>Sponsorship must be approved by HR + Safety Congress, LLC<br>Payment due on April 1, 2027</p>
 <a class="btn" href="/sponsor/">Apply to sponsor</a></article><article class="card"><div><h3>Silver Sponsor</h3><p class="price">$2,500</p></div>
-<ul class="b"><li><span class="d"></span><span>Logo recognition on the HR + Safety Congress LLC RENEW. event website and materials</span></li><li><span class="d"></span><span>Recognition during the event</span></li><li><span class="d"></span><span>Sponsor Alley exhibitor table</span></li><li><span class="d"></span><span>2 event registrations</span></li></ul>
+<ul class="b"><li><span class="d"></span><span>Logo recognition on the HR + Safety Congress LLC RENEW. event website and materials</span></li><li><span class="d"></span><span>Recognition during the event</span></li><li><span class="d"></span><span>Sponsor Alley exhibitor table</span></li><li><span class="d"></span><span>2 event registrations</span></li><li><span class="d"></span><span>On April 1, 2027, donations of $2,500 and above must complete a Blood Cancer United form to receive Visionaries of the Year benefits</span></li></ul>
 <p class="pay">Paid directly to Blood Cancer United<span style="color:#B8860B;font-weight:700;">*</span> and counts toward the For the Kids campaign<br>Sponsorship must be approved by HR + Safety Congress, LLC<br>Payment due on April 1, 2027</p>
 <a class="btn" href="/sponsor/">Apply to sponsor</a></article><article class="card"><div><h3>Community Sponsor</h3><p class="price">$1,000</p></div>
 <ul class="b"><li><span class="d"></span><span>Logo recognition on the HR + Safety Congress LLC RENEW. event website and materials</span></li><li><span class="d"></span><span>1 event registration</span></li></ul>

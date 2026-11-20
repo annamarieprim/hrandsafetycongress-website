@@ -273,6 +273,68 @@ a{color:#14246B}a:hover{color:#0B154A}
 })();
 </script>
 <!-- hsc-chat:end -->
+<!-- renew-thermo:css:start -->
+<style>
+.rt { --rt-p: 0%; --rt-r: 0%; }
+.rt.rt-on { --rt-p: var(--rt-pt); --rt-r: var(--rt-rt); }
+.rt-v { display: inline-grid; grid-template-columns: auto 40px auto; grid-template-rows: auto 1fr; gap: 0 14px; color: #FFFFFF; font-family: inherit; }
+.rt-v .rt-head { grid-column: 1 / -1; margin: 0 0 14px; }
+.rt-v .rt-k { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #BFD3CA; }
+.rt-v .rt-goal { margin: 2px 0 0; font-weight: 800; font-size: 30px; line-height: 1.1; color: #FFFFFF; }
+.rt-v .rt-goal span { color: #D5A939; }
+.rt-ticks { position: relative; width: 40px; height: 230px; font-size: 12px; color: #BFD3CA; }
+.rt-ticks span { position: absolute; right: 0; transform: translateY(50%); white-space: nowrap; }
+.rt-tube-wrap { position: relative; width: 40px; height: 290px; }
+.rt-tube { position: absolute; left: 7px; top: 0; width: 26px; height: 236px; border-radius: 13px 13px 0 0; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.4); border-bottom: 0; overflow: hidden; }
+.rt-fill { position: absolute; left: 0; right: 0; bottom: 0; transition: height 1.8s cubic-bezier(.22,.8,.3,1); }
+.rt-fill.p { height: var(--rt-p); background: repeating-linear-gradient(135deg, rgba(213,169,57,.55) 0 6px, rgba(213,169,57,.32) 6px 12px); }
+.rt-fill.r { height: var(--rt-r); background: linear-gradient(90deg, #C99A2E, #F3DA8A 55%, #D5A939); transition-delay: .3s; }
+.rt-bulb { position: absolute; left: 0; bottom: 0; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F3DA8A, #D5A939 60%, #A97E1E); border: 2px solid rgba(255,255,255,.4); box-shadow: 0 0 14px rgba(213,169,57,.45); }
+.rt-bulb::before { content: ''; position: absolute; left: 7px; top: -14px; width: 22px; height: 20px; background: #D5A939; }
+.rt-tick { position: absolute; left: 30px; width: 10px; height: 2px; background: rgba(255,255,255,.4); }
+.rt-legend { align-self: center; display: flex; flex-direction: column; gap: 16px; font-size: 15px; }
+.rt-legend p { margin: 0; line-height: 1.3; }
+.rt-legend b { display: block; font-size: 24px; font-weight: 800; color: #FFFFFF; }
+.rt-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+.rt-sw.r { background: linear-gradient(90deg, #C99A2E, #F3DA8A); }
+.rt-sw.p { background: repeating-linear-gradient(135deg, rgba(213,169,57,.85) 0 3px, rgba(213,169,57,.45) 3px 6px); }
+.rt-legend .rt-lbl { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #BFD3CA; }
+.rt-legend .rt-note { font-size: 13px; color: #BFD3CA; }
+.rt-h { margin: 18px 0 0; max-width: 460px; padding: 14px 16px; border-radius: 6px; background: #F5F7FB; color: #14246B; font-size: 14px; }
+.rt-h .rt-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; align-items: baseline; }
+.rt-h .rt-k { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #6B7488; }
+.rt-h .rt-bar { position: relative; margin: 8px 0 6px; height: 12px; border-radius: 6px; background: #DDE2EE; overflow: hidden; }
+.rt-h .rt-fill.p { background: repeating-linear-gradient(135deg, rgba(20,36,107,.42) 0 6px, rgba(20,36,107,.26) 6px 12px); }
+.rt-h .rt-fill { top: 0; bottom: 0; left: 0; right: auto; height: auto; transition: width 1.8s cubic-bezier(.22,.8,.3,1); }
+.rt-h .rt-fill.p { width: var(--rt-p); } .rt-h .rt-fill.r { width: var(--rt-r); background: #14246B; transition-delay: .3s; }
+.rt-h .rt-sw.p { background: repeating-linear-gradient(135deg, rgba(20,36,107,.6) 0 3px, rgba(20,36,107,.3) 3px 6px); } .rt-h .rt-sw.r { background: #14246B; }
+.rt-h .rt-legend-h { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 13px; color: #3A4256; }
+@media (prefers-reduced-motion: reduce) { .rt-fill { transition: none !important; } }
+</style>
+<script>
+(function () {
+  if (window.__rtInit) return; window.__rtInit = true;
+  function go() {
+    var els = document.querySelectorAll('.rt');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function on(el) {
+      el.classList.add('rt-on');
+      if (reduce) return;
+      el.querySelectorAll('[data-rt-n]').forEach(function (n) {
+        var end = +n.getAttribute('data-rt-n'); if (!end) return; var t0 = null;
+        (function s(t) { if (!t0) t0 = t; var k = Math.min((t - t0) / 1800, 1), e = 1 - Math.pow(1 - k, 3);
+          n.textContent = '$' + Math.round(end * e).toLocaleString('en-US'); if (k < 1) requestAnimationFrame(s); })(performance.now());
+      });
+    }
+    els.forEach(function (el) {
+      if (reduce || !('IntersectionObserver' in window)) return on(el);
+      new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { o.disconnect(); setTimeout(function () { on(el); }, 200); } }, { threshold: .4 }).observe(el);
+    });
+  }
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+})();
+</script>
+<!-- renew-thermo:css:end -->
 </head>
 <body>
 <div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1E2433; background: #FFFFFF; font-size: 18px; line-height: 1.6;">
@@ -358,6 +420,13 @@ a{color:#14246B}a:hover{color:#0B154A}
 <a href="/renew/" style="font-weight: 700; font-size: 17px; padding: 10px 0;">View event details</a>
 </div>
 <p aria-label="RENEW sponsor" style="margin: 18px 0 0; padding: 8px 14px; border-radius: 6px; background: #F5F7FB; display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; font-size: 14px; color: #14246B;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B7488;">Location sponsor</span><strong style="font-weight: 700;">Partners Real Estate | David Ballard</strong></p>
+<!-- renew-thermo:horizontal:start -->
+<div class="rt rt-h" role="img" aria-label="RENEW. campaign: $10,000 pledged, $0 received, goal $30,000" style="--rt-pt: 33.33%; --rt-rt: 0.00%;">
+<div class="rt-row"><span class="rt-k">RENEW. campaign goal</span><strong style="font-weight: 800;">$30,000</strong></div>
+<div class="rt-bar"><div class="rt-fill p"></div><div class="rt-fill r"></div></div>
+<div class="rt-legend-h"><span><i class="rt-sw p"></i>Pledged <strong>$10,000</strong></span><span><i class="rt-sw r"></i>Received <strong>$0</strong> · Payments begin April 1, 2027</span></div>
+</div>
+<!-- renew-thermo:horizontal:end -->
 </div>
 <div style="flex: 1 1 100%; min-width: 0; background: #BD2024; color: #FFFFFF; padding: 26px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 36px;">
 <div style="flex: 0 1 auto; min-width: 0;">
@@ -367,7 +436,7 @@ a{color:#14246B}a:hover{color:#0B154A}
 </div>
 <div style="flex: 1 1 420px; min-width: 0;">
 <p style="margin: 0 0 6px; font-weight: 800; font-size: 21px; line-height: 1.25;">Your seat at RENEW helps fight blood cancer</p>
-<p style="margin: 0 0 6px; font-size: 16px; color: #FFF1F1;">HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup> donates every $150 RENEW ticket to Blood Cancer United. RENEW is a signature event of For the Kids, Alan Derek Utley’s 2027 Blood Cancer United Visionaries of the Year campaign.</p>
+<p style="margin: 0 0 6px; font-size: 16px; color: #FFF1F1;">HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup> donates every $150 RENEW ticket to Blood Cancer United. RENEW is a signature event of For the Kids, a 2027 Blood Cancer United Visionaries of the Year campaign.</p>
 <p style="margin: 0; font-size: 16px; color: #FFF1F1;">Every dollar raised supports research, advocacy, and support for patients and families facing blood cancer.</p>
 </div>
 </div>
