@@ -315,22 +315,19 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 .rt-v .rt-k { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #BFD3CA; }
 .rt-v .rt-goal { margin: 2px 0 0; font-weight: 800; font-size: 30px; line-height: 1.1; color: #FFFFFF; }
 .rt-v .rt-goal span { color: #D5A939; }
-.rt-ticks { position: relative; width: 40px; height: 230px; font-size: 12px; color: #BFD3CA; }
-.rt-ticks span { position: absolute; right: 0; transform: translateY(50%); white-space: nowrap; }
-.rt-tube-wrap { position: relative; width: 40px; height: 290px; }
-.rt-tube { position: absolute; left: 7px; top: 0; width: 26px; height: 236px; border-radius: 13px 13px 0 0; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.4); border-bottom: 0; overflow: hidden; }
-.rt-fill { position: absolute; left: 0; right: 0; bottom: 0; transition: height 1.8s cubic-bezier(.22,.8,.3,1); }
-.rt-fill.p { height: var(--rt-p); background: repeating-linear-gradient(135deg, rgba(213,169,57,.55) 0 6px, rgba(213,169,57,.32) 6px 12px); }
-.rt-fill.r { height: var(--rt-r); background: linear-gradient(90deg, #C99A2E, #F3DA8A 55%, #D5A939); transition-delay: .3s; }
-.rt-bulb { position: absolute; left: 0; bottom: 0; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F3DA8A, #D5A939 60%, #A97E1E); border: 2px solid rgba(255,255,255,.4); box-shadow: 0 0 14px rgba(213,169,57,.45); }
-.rt-bulb::before { content: ''; position: absolute; left: 7px; top: -14px; width: 22px; height: 20px; background: #D5A939; }
-.rt-tick { position: absolute; left: 30px; width: 10px; height: 2px; background: rgba(255,255,255,.4); }
+.rt-ticks { position: relative; width: 40px; height: 290px; font-size: 12px; color: #BFD3CA; }
+.rt-ticks span { position: absolute; right: 0; transform: translateY(-50%); white-space: nowrap; }
+.rt-ticks span::before { content: '$'; }
+.rt-svg { display: block; overflow: visible; }
+.rt-liq { transform: translateY(300px); transition: transform 1.8s cubic-bezier(.22,.8,.3,1); }
+.rt-on .rt-liq.p { transform: translateY(var(--rt-po)); }
+.rt-on .rt-liq.r { transform: translateY(var(--rt-ro)); transition-delay: .3s; }
 .rt-legend { align-self: center; display: flex; flex-direction: column; gap: 16px; font-size: 15px; }
 .rt-legend p { margin: 0; line-height: 1.3; }
 .rt-legend b { display: block; font-size: 24px; font-weight: 800; color: #FFFFFF; }
 .rt-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
-.rt-sw.r { background: linear-gradient(90deg, #C99A2E, #F3DA8A); }
-.rt-sw.p { background: repeating-linear-gradient(135deg, rgba(213,169,57,.85) 0 3px, rgba(213,169,57,.45) 3px 6px); }
+.rt-sw.r { background: #D5A939; }
+.rt-sw.p { background: repeating-linear-gradient(135deg, rgba(213,169,57,.75) 0 3px, rgba(213,169,57,.3) 3px 6px); }
 .rt-legend .rt-lbl { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #BFD3CA; }
 .rt-legend .rt-note { font-size: 13px; color: #BFD3CA; }
 .rt-h { margin: 18px 0 0; max-width: 460px; padding: 14px 16px; border-radius: 6px; background: #F5F7FB; color: #14246B; font-size: 14px; }
@@ -342,7 +339,7 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 .rt-h .rt-fill.p { width: var(--rt-p); } .rt-h .rt-fill.r { width: var(--rt-r); background: #14246B; transition-delay: .3s; }
 .rt-h .rt-sw.p { background: repeating-linear-gradient(135deg, rgba(20,36,107,.6) 0 3px, rgba(20,36,107,.3) 3px 6px); } .rt-h .rt-sw.r { background: #14246B; }
 .rt-h .rt-legend-h { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 13px; color: #3A4256; }
-@media (prefers-reduced-motion: reduce) { .rt-fill { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .rt-fill, .rt-liq { transition: none !important; } }
 </style>
 <script>
 (function () {
@@ -562,10 +559,20 @@ h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 </div>
 <div style="flex: 0 0 auto; min-width: 0; position: relative; z-index: 6;">
 <!-- renew-thermo:vertical:start -->
-<div class="rt rt-v" role="img" aria-label="RENEW. campaign: $10,000 pledged, $0 received, goal $30,000" style="--rt-pt: 33.33%; --rt-rt: 0.00%;">
+<div class="rt rt-v" role="img" aria-label="RENEW. campaign: $10,000 pledged, $0 received, goal $30,000" style="--rt-po: 164.0px; --rt-ro: 300px;">
 <div class="rt-head"><p class="rt-k">RENEW<span style="color: #D5A939;">.</span> campaign goal</p><p class="rt-goal">$30,000</p></div>
-<div class="rt-ticks" style="height: 290px;"><div style="position: absolute; left: 0; right: 0; top: 0; height: 236px;"><span style="bottom: 78.7px;">$10K</span><span style="bottom: 157.3px;">$20K</span><span style="bottom: 236.0px;">$30K</span></div></div>
-<div class="rt-tube-wrap"><div class="rt-tube"><div class="rt-fill p"></div><div class="rt-fill r"></div></div><i class="rt-tick" style="bottom: 131.7px;"></i><i class="rt-tick" style="bottom: 210.3px;"></i><div class="rt-bulb"></div></div>
+<div class="rt-ticks"><span style="top: 170.0px;">10K</span><span style="top: 88.0px;">20K</span><span style="top: 6.0px;">30K</span></div>
+<svg class="rt-svg" width="40" height="290" viewBox="0 0 40 290" aria-hidden="true">
+<defs><clipPath id="rt-clip-renew"><path d="M9,17 A11,11 0 0 1 31,17 L31,252 A18,18 0 1 1 9,252 Z"/></clipPath>
+<pattern id="rt-str-renew" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="rgba(213,169,57,.35)"/><rect width="5" height="10" fill="rgba(213,169,57,.7)"/></pattern></defs>
+<path d="M9,17 A11,11 0 0 1 31,17 L31,252 A18,18 0 1 1 9,252 Z" fill="rgba(255,255,255,.1)"/>
+<g clip-path="url(#rt-clip-renew)">
+<rect class="rt-liq p" x="0" y="6" width="40" height="290" fill="url(#rt-str-renew)"/>
+<rect class="rt-liq r" x="0" y="6" width="40" height="290" fill="#D5A939"/>
+</g>
+<line x1="26" x2="31" y1="170.0" y2="170.0" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/><line x1="26" x2="31" y1="88.0" y2="88.0" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+<path d="M9,17 A11,11 0 0 1 31,17 L31,252 A18,18 0 1 1 9,252 Z" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+</svg>
 <div class="rt-legend">
 <p><span class="rt-lbl"><i class="rt-sw p"></i>Pledged</span><b data-rt-n="10000">$10,000</b></p>
 <p><span class="rt-lbl"><i class="rt-sw r"></i>Received</span><b data-rt-n="0">$0</b><span class="rt-note">Payments begin April 1, 2027</span></p>
