@@ -36,8 +36,8 @@
 @media (prefers-reduced-motion: reduce) { .ag-smile, .ag-wink { animation: none; } }
 .ag-side { display: flex; flex-direction: column; gap: 10px; }
 .ag-side-more { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; padding-top: 22px; border-top: 1px solid #E3ECE7; }
-.ag-exh-link { background: #FFFFFF; border-color: #D5E7DE; border-left-color: #0F3E2D; }
-.ag-exh-link .ag-bl-t { color: #33443D; } .ag-exh-link .ag-bl-go { color: #8A6A12; }
+.ag-bring-link.ag-exh-link { background: #FFFFFF; border-color: #D5E7DE; border-left-color: #0F3E2D; }
+.ag-bring-link.ag-exh-link .ag-bl-t { color: #33443D; } .ag-bring-link.ag-exh-link .ag-bl-go { color: #8A6A12; }
 .ag-exh { background: #F6F9F7; border-top: 1px solid #E3ECE7; }
 .ag-exh-row { margin-bottom: 14px; }
 .ag-exh-t { margin: 0; font-size: 17px; color: #33443D; max-width: 760px; }
@@ -93,7 +93,7 @@ a.ag-sp-slot:hover { border-color: #D5A939; color: #0F3E2D; }
 .ag-logo-wide { max-width: 82%; max-height: 54px; object-fit: contain; }
 .ag-sp-real { border-style: solid; border-color: #D5E7DE; background: #FFFFFF; color: #0F3E2D; }
 #sponsors { scroll-margin-top: 16px; }
-.ag-side-div { border: 0; border-top: 1px solid #E3ECE7; margin: 14px 0 12px; }
+.ag-side-div { border: 0; border-top: 1px solid #E3ECE7; margin: 6px 0 4px; }
 .ag-bring-link { display: block; text-decoration: none; border-radius: 10px; padding: 12px 16px; background: #D5A939; border: 1px solid #C89A2C; border-left: 4px solid #0F3E2D; transition: transform .25s ease, box-shadow .25s ease; }
 .ag-bring-link:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15,62,45,.12); }
 .ag-bring-link:focus-visible { outline: 3px solid #D5A939; outline-offset: 3px; }
@@ -111,11 +111,11 @@ html { scroll-behavior: smooth; }
 .ag-hero-text { flex: 1 1 460px; min-width: 0; }
 .ag-hk { flex: 0 1 380px; text-align: center; position: relative; z-index: 6; }
 .ag-hk-art { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 4px; }
-.hk-kids { animation: hkHop 2.8s ease-in-out infinite; }
+.hk-kids { animation: none; }
 .hk-wave { transform-box: view-box; transform-origin: 52px 58px; animation: hkWave 2.8s ease-in-out infinite; }
 .hk-bal { transform-box: view-box; transform-origin: 211px 52px; animation: hkBal 4.2s ease-in-out infinite; }
 @keyframes hkHop { 0%, 60%, 100% { transform: translateY(0); } 15% { transform: translateY(-5px); } 30% { transform: translateY(0); } 45% { transform: translateY(-4px); } }
-@keyframes hkWave { 0%, 75%, 100% { transform: rotate(0deg); } 20% { transform: rotate(85deg); } 35% { transform: rotate(55deg); } 50% { transform: rotate(85deg); } }
+@keyframes hkWave { 0%, 75%, 100% { transform: rotate(0deg); } 20% { transform: rotate(22deg); } 35% { transform: rotate(6deg); } 50% { transform: rotate(22deg); } }
 @keyframes hkBal { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
 @media (prefers-reduced-motion: reduce) { .hk-kids, .hk-wave, .hk-bal { animation: none; } }
 .ag-hk-h { margin: 2px 0 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 28px; letter-spacing: .05em; color: #FFFFFF; }
@@ -489,7 +489,9 @@ html { scroll-behavior: smooth; }
 </div>
 <hr class="ag-side-div">
 <a href="#what-to-bring" class="ag-bring-link"><span class="ag-bl-k">WHAT TO BRING</span><span class="ag-bl-t">Your card for vendors and donations, business cards, a notebook and more. Parking is free.</span><span class="ag-bl-go">See the list <span aria-hidden="true">↓</span></span></a>
-<a href="#exhibitors" class="ag-bring-link ag-exh-link"><span class="ag-bl-k">EXHIBITOR HALL</span><span class="ag-bl-t">Who will be present and who is selling at RENEW<span style="color: #D5A939;">.</span></span><span class="ag-bl-go">Visit the hall <span aria-hidden="true">↓</span></span></a>
+<hr class="ag-side-div">
+<a href="#exhibitors" class="ag-bring-link ag-exh-link"><span class="ag-bl-k">EXHIBITOR HALL</span><span class="ag-bl-t">Meet Nicole, shop the vendors, give at the donation table and say hello to the planning team.</span><span class="ag-bl-go">Visit the hall <span aria-hidden="true">↓</span></span></a>
+<hr class="ag-side-div">
 <a href="/subscribe/" class="ag-sub ag-sub-side">Subscribe for Congress updates</a>
 </div>
 </aside>
