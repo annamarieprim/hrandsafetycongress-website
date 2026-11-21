@@ -190,7 +190,7 @@ html { scroll-behavior: smooth; }
 .ag-side-hint { margin: -6px 0 2px; font-size: 13px; color: #5B6B64; }
 .ag-row, .ag-t { transition: opacity .35s ease, filter .35s ease; }
 .ag-row .ag-card { transition: box-shadow .35s ease, transform .35s ease; }
-.ag-picking .ag-row:not(.ag-hl), .ag-picking .ag-t { opacity: .28; filter: saturate(.4); }
+.ag-picking .ag-row:not(.ag-hl), .ag-picking .ag-t:not(.ag-hl) { opacity: .28; filter: saturate(.4); }
 .ag-picking .ag-row.ag-hl .ag-card { box-shadow: 0 0 0 2px #D5A939, 0 10px 24px rgba(15,62,45,.16); transform: translateX(4px); }
 .ag-leaf { position: absolute; left: 119.5px; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; z-index: 3; pointer-events: none; filter: drop-shadow(0 0 5px rgba(213,169,57,.7)); will-change: transform; }
 .ag-now .ag-card { box-shadow: 0 0 0 3px #D5A939, 0 0 22px rgba(213,169,57,.55); }
@@ -206,6 +206,7 @@ html { scroll-behavior: smooth; }
 .ag-pills { flex: 0 0 auto; align-self: flex-start; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
 .ag-pill { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 .ag-pill-reflect { background: #E4EEE9; color: #0F3E2D; }
+.ag-pill-sm { font-size: 10.5px; padding: 2px 8px; margin-left: 6px; vertical-align: 1px; }
 .ag-pill-reconnect { background: #FFFFFF; color: #2F5E4A; border: 1px solid #8FB09B; }
 .ag-pill-grow { background: #0F3E2D; color: #D5A939; }
 .ag-key .ag-pill-grow { background: #D5A939; color: #082B1E; }
@@ -384,7 +385,7 @@ html { scroll-behavior: smooth; }
       current = current === k ? '' : k;
       grid.classList.toggle('ag-picking', !!current);
       picks.forEach(function (c) { var on = c.getAttribute('data-pick') === current; c.classList.toggle('ag-sel', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
-      list.querySelectorAll('.ag-row').forEach(function (r) { r.classList.toggle('ag-hl', !!current && (' ' + r.getAttribute('data-th') + ' ').indexOf(' ' + current + ' ') > -1); });
+      list.querySelectorAll('.ag-row, .ag-t').forEach(function (r) { r.classList.toggle('ag-hl', !!current && (' ' + r.getAttribute('data-th') + ' ').indexOf(' ' + current + ' ') > -1); });
     }
     picks.forEach(function (c) {
       c.addEventListener('click', function () { pick(c.getAttribute('data-pick')); });
@@ -473,20 +474,20 @@ html { scroll-behavior: smooth; }
 <div class="ag-card"><span class="ag-phw"><img class="ag-ph" src="/assets/speakers/steve-multer.jpg" alt="Steve Multer"><svg class="ag-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" pathLength="1" transform="rotate(-90 32 32)"/></svg></span><div class="ag-body"><p class="ag-k">OPENING KEYNOTE</p><p class="ag-who">Steve Multer</p><p class="ag-ttl">Storytelling Strategist &amp; Keynote Speaker</p><p class="ag-desc">Leave with fresh perspective and practical next steps to lead with energy and intention.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grow">Grow</span></span></div></li>
 <li class="ag-row ag-key" data-th="grow" data-time="8:50–9:10"><span class="ag-time">8:50–9:10</span>
 <div class="ag-card"><span class="ag-phw"><img class="ag-ph" src="/assets/speakers/alan-derek-utley.jpg" alt="Alan Derek Utley"><svg class="ag-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" pathLength="1" transform="rotate(-90 32 32)"/></svg></span><div class="ag-body"><p class="ag-k">FEATURED SPEAKER</p><p class="ag-who">Alan Derek Utley</p><p class="ag-ttl">Founder, RENEW · HR Executive and Keynote Speaker</p><p class="ag-desc">Leave with fresh perspective and practical next steps to lead with energy and intention.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grow">Grow</span></span></div></li>
-<li class="ag-t"><span class="ag-time">9:10–9:15</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction</span></li>
+<li class="ag-t" data-th="reflect"><span class="ag-time">9:10–9:15</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction <span class="ag-pill ag-pill-reflect ag-pill-sm">Reflect</span></span></li>
 <li class="ag-row ag-key" data-th="grow" data-time="9:15–9:35"><span class="ag-time">9:15–9:35</span>
 <div class="ag-card"><span class="ag-phw"><img class="ag-ph" src="/assets/speakers/lauren-costley.jpg" alt="Lauren Costley, CPC"><svg class="ag-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" pathLength="1" transform="rotate(-90 32 32)"/></svg></span><div class="ag-body"><p class="ag-k">FEATURED SPEAKER</p><p class="ag-who">Lauren Costley, CPC</p><p class="ag-ttl">Recruiting Executive and Speaker</p><p class="ag-desc">Leave with fresh perspective and practical next steps to lead with energy and intention.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grow">Grow</span></span></div></li>
-<li class="ag-t"><span class="ag-time">9:35–9:40</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction</span></li>
+<li class="ag-t" data-th="reflect"><span class="ag-time">9:35–9:40</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction <span class="ag-pill ag-pill-reflect ag-pill-sm">Reflect</span></span></li>
 <li class="ag-row ag-gracerow" data-th="grace" data-time="9:40–9:50"><span class="ag-time">9:40–9:50</span>
 <div class="ag-card"><div class="ag-body"><p class="ag-k">RENEW THROUGH BREATH</p><p class="ag-who">Certified Breathing Experience</p><p class="ag-desc">A Moment of Grace. Room to Breathe. Space to Reflect. Time to Heal. Freedom to Simply Be.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grace">Renew</span></span></div></li>
 <li class="ag-row ag-reconrow" data-th="reconnect" data-time="9:50–10:00"><span class="ag-time">9:50–10:00</span>
 <div class="ag-card"><div class="ag-body"><p class="ag-k">RECONNECT</p><p class="ag-who">Sponsor Moment • Break • Lemonade • Vendors</p><p class="ag-desc">Come back to the people around you, and to yourself, through conversation, laughter and shared purpose.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-reconnect">Reconnect</span></span></div></li>
 <li class="ag-row ag-gracerow" data-th="grace" data-time="10:00–10:15"><span class="ag-time">10:00–10:15</span>
 <div class="ag-card"><div class="ag-body"><p class="ag-k">RENEW THROUGH LAUGHTER</p><p class="ag-who">Comedian</p><p class="ag-desc">A Moment of Grace. Room to Breathe. Space to Reflect. Time to Heal. Freedom to Simply Be.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grace">Renew</span></span></div></li>
-<li class="ag-t"><span class="ag-time">10:15–10:20</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction</span></li>
+<li class="ag-t" data-th="reflect"><span class="ag-time">10:15–10:20</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction <span class="ag-pill ag-pill-reflect ag-pill-sm">Reflect</span></span></li>
 <li class="ag-row ag-key" data-th="grow" data-time="10:20–10:40"><span class="ag-time">10:20–10:40</span>
 <div class="ag-card"><span class="ag-phw"><img class="ag-ph" src="/assets/speakers/laura-suttin.jpg" alt="Dr. Laura Suttin"><svg class="ag-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" pathLength="1" transform="rotate(-90 32 32)"/></svg></span><div class="ag-body"><p class="ag-k">FEATURED SPEAKER</p><p class="ag-who">Dr. Laura Suttin</p><p class="ag-ttl">Physician, Executive &amp; Keynote Speaker</p><p class="ag-desc">Leave with fresh perspective and practical next steps to lead with energy and intention.</p></div><span class="ag-pills"><span class="ag-pill ag-pill-grow">Grow</span></span></div></li>
-<li class="ag-t"><span class="ag-time">10:40–10:45</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction</span></li>
+<li class="ag-t" data-th="reflect"><span class="ag-time">10:40–10:45</span><span class="ag-tline"><em>Reflect &amp; Connect</em> · Steve Multer: Reflection &amp; Introduction <span class="ag-pill ag-pill-reflect ag-pill-sm">Reflect</span></span></li>
 <li class="ag-row" data-th="" data-time="10:45–11:00"><span class="ag-time">10:45–11:00</span>
 <div class="ag-card"><div class="ag-body"><p class="ag-k">CONNECT WITH PURPOSE</p><p class="ag-who">Blood Cancer United Representative</p></div></div></li>
 <li class="ag-row" data-th="" data-time="11:00–11:20"><span class="ag-time">11:00–11:20</span>
