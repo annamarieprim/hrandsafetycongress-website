@@ -28,7 +28,7 @@
 .ag-bring-list li { background: #F6F9F7; border: 1px solid #D5E7DE; border-left: 4px solid #D5A939; border-radius: 8px; padding: 12px 16px; }
 .ag-bring-list b { display: block; font-size: 16px; color: #0F3E2D; }
 .ag-bring-list span { display: block; margin-top: 2px; font-size: 14px; color: #4A5A53; }
-.ag-bring-list .ag-bring-smile { display: flex; align-items: center; justify-content: flex-start; gap: 14px; text-align: left; background: #FBF4E2; border-color: #EAD9A6; border-left-color: #D5A939; }
+.ag-bring-list .ag-bring-smile { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 14px; text-align: left; background: #FBF4E2; border-color: #EAD9A6; border-left-color: #D5A939; }
 .ag-smile { width: 52px; height: 52px; flex: 0 0 52px; filter: drop-shadow(0 3px 4px rgba(150,95,10,.25)); transform-origin: 50% 90%; animation: agSmile 3.2s ease-in-out infinite; }
 .ag-wink { transform-box: fill-box; transform-origin: center; animation: agWink 3.2s ease-in-out infinite; }
 @keyframes agSmile { 0%, 55%, 100% { transform: translateY(0) scale(1) rotate(0); } 62% { transform: translateY(-7px) scale(1.12) rotate(-8deg); } 70% { transform: translateY(0) scale(.96) rotate(6deg); } 78% { transform: translateY(-3px) scale(1.05) rotate(-3deg); } 86% { transform: translateY(0) scale(1) rotate(0); } }
@@ -508,6 +508,7 @@ html { scroll-behavior: smooth; }
 <li><b>A notebook and pen</b><span>For the Reflect and Grow moments you will want to keep.</span></li>
 <li><b>A light layer</b><span>Event rooms can run cool.</span></li>
 <li><b>A charged phone</b><span>For photos, connecting and staying in touch.</span></li>
+<li><b>A bag for your goodies ;-)</b><span>For vendor finds, giveaways and treats to take home.</span></li>
 <li><b>Recertification credit</b><span>1 SHRM and HRCI recertification credit will be applied for.</span></li>
 <li class="ag-bring-smile"><svg class="ag-smile" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="agSm" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#FFE680"/><stop offset=".6" stop-color="#FFCC33"/><stop offset="1" stop-color="#F5A623"/></radialGradient></defs><circle cx="32" cy="32" r="29" fill="url(#agSm)" stroke="#E0951C" stroke-width="1.5"/><ellipse class="ag-wink" cx="22.5" cy="25" rx="3.6" ry="5.2" fill="#5B3A0E"/><ellipse cx="41.5" cy="25" rx="3.6" ry="5.2" fill="#5B3A0E"/><path d="M16 36 Q32 41 48 36 Q46 52 32 52 Q18 52 16 36 Z" fill="#5B3A0E"/><path d="M18.5 37.6 Q32 41.6 45.5 37.6 Q45 41 44 42.5 Q32 45.5 20 42.5 Q19 41 18.5 37.6 Z" fill="#FFFFFF"/><path d="M24.5 49 Q32 46 39.5 49 Q36.5 52 32 52 Q27.5 52 24.5 49 Z" fill="#E8655A"/><ellipse cx="22" cy="14" rx="9" ry="4.5" fill="#FFFFFF" opacity=".35" transform="rotate(-20 22 14)"/></svg><div><b>YOU and your smile</b><span>The best thing you will bring all day.</span></div></li>
 </ul>
