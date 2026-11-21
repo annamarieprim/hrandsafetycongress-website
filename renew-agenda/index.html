@@ -62,7 +62,9 @@ a.ag-sp-slot:hover { border-color: #D5A939; color: #0F3E2D; }
 .ag-sp-xl { width: min(100%, 520px); height: 120px; font-size: 20px; }
 .ag-sp-lg { width: min(100%, 300px); height: 96px; font-size: 17px; }
 .ag-sp-md { width: min(100%, 230px); height: 80px; font-size: 15px; }
-.ag-sp-sm { width: min(100%, 170px); height: 64px; font-size: 14px; }
+.ag-sp-sm { width: min(100%, 170px); height: 86px; font-size: 14px; }
+.ag-ik-row .ag-sp-slot { box-sizing: border-box; width: min(100%, 210px); height: 96px; flex: 0 0 auto; }
+.ag-ik-row .ag-ik-person { justify-content: flex-start; padding: 10px 12px; }
 .ag-logo-tile { gap: 10px; }
 .ag-amp-col { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
 .ag-amp-col .ag-logo-wide { max-height: 40px; }
@@ -79,7 +81,7 @@ a.ag-sp-slot:hover { border-color: #D5A939; color: #0F3E2D; }
 .ag-ca-img { height: 100%; max-width: 100%; object-fit: contain; display: block; }
 .ag-org-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .ag-org { width: min(100%, 360px); display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #D5E7DE; border-radius: 10px; overflow: hidden; }
-.ag-org-logo { height: 92px; display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 1px solid #E3ECE7; position: relative; }
+.ag-org-logo { height: 92px; box-sizing: border-box; flex: 0 0 92px; display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 1px solid #E3ECE7; position: relative; }
 .ag-org-amp { background: #2E0050; } .ag-org-ca { background: #151145; padding: 6px; } .ag-org-bcuwrap { background: #FBF4E2; }
 .ag-org-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ag-org-contain { height: 100%; object-fit: contain; }
@@ -90,6 +92,15 @@ a.ag-sp-slot:hover { border-color: #D5A939; color: #0F3E2D; }
 .ag-org-body p { margin: 4px 0 0; font-size: 14px; line-height: 1.45; color: #4A5A53; }
 .ag-org-go { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 700; color: #0F3E2D; }
 .ag-sp-slot.ag-ampling-tile { height: auto; min-height: 120px; padding: 14px 10px; }
+.lm-wave { transform-box: view-box; transform-origin: 96px 74px; animation: lmWave 3s ease-in-out infinite; }
+.lm-cup { transform-box: view-box; transform-origin: 146px 75px; animation: lmCup 3s ease-in-out infinite; }
+.lm-lemons { animation: lmBob 3s ease-in-out infinite; }
+@keyframes lmWave { 0%, 60%, 100% { transform: rotate(0deg); } 15% { transform: rotate(18deg); } 30% { transform: rotate(4deg); } 45% { transform: rotate(18deg); } }
+@keyframes lmCup { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-14deg); } }
+@keyframes lmBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+.ag-glow-text { background: linear-gradient(100deg, #DCE9E2 0%, #DCE9E2 38%, #FFF4CC 46%, #FFFFFF 50%, #F3DA8A 54%, #DCE9E2 62%, #DCE9E2 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: agGlowText 2.6s linear infinite; }
+@keyframes agGlowText { from { background-position: 100% 0; } to { background-position: -160% 0; } }
+@media (prefers-reduced-motion: reduce) { .lm-wave, .lm-cup, .lm-lemons, .ag-glow-text { animation: none; } .ag-glow-text { color: #DCE9E2; background: none; } }
 .ag-goods { margin-top: 4px; font-size: 12px; line-height: 1.35; color: #5B6B64; text-align: center; padding: 0 8px; }
 .ag-lemon-b { margin-top: 4px; font-size: 12px; line-height: 1.35; color: #CFE0D7; text-align: center; }
 .ag-mg { display: flex; align-items: center; gap: 14px; text-decoration: none; background: #0F3E2D; border-radius: 10px; padding: 12px 18px 12px 12px; border: 2px solid #D5A939; transition: transform .25s ease, box-shadow .25s ease; }
@@ -508,9 +519,9 @@ html { scroll-behavior: smooth; }
 <hr class="ag-side-div">
 <a href="#what-to-bring" class="ag-bring-link"><span class="ag-bl-k">WHAT TO BRING</span><span class="ag-bl-t">Your card for vendors and donations, business cards, a notebook and more. Parking is free.</span><span class="ag-bl-go">See the list <span aria-hidden="true">↓</span></span></a>
 <hr class="ag-side-div">
-<a href="#exhibitors" class="ag-bring-link ag-exh-link"><span class="ag-bl-k">EXHIBITOR HALL</span><span class="ag-bl-t">Meet Nicole, shop the vendors, give at the donation table and say hello to the planning team.</span><span class="ag-bl-go">Visit the hall <span aria-hidden="true">↓</span></span></a>
-<hr class="ag-side-div">
 <a href="/subscribe/" class="ag-sub ag-sub-side">Subscribe for Congress updates</a>
+<hr class="ag-side-div">
+<a href="#exhibitors" class="ag-bring-link ag-exh-link"><span class="ag-bl-k">EXHIBITOR HALL</span><span class="ag-bl-t">Meet Nicole, shop the vendors, give at the donation table and say hello to the planning team.</span><span class="ag-bl-go">Visit the hall <span aria-hidden="true">↓</span></span></a>
 </div>
 </aside>
 </div></section>
@@ -531,7 +542,7 @@ html { scroll-behavior: smooth; }
 <section class="ag-exh" id="exhibitors"><div class="ag-bring-in">
 <h2 class="ag-h2">Exhibitor Hall</h2>
 <p class="ag-exh-t" style="margin-bottom: 16px;">Visit the Exhibitor Hall during breakfast, both breaks and the 1:00 networking hour.</p>
-<div class="ag-sp-tier"><p class="ag-sp-k">Meet &amp; greet</p><div class="ag-sp-row"><a class="ag-mg" href="#book-signing"><img src="/assets/speakers/nicole-bianchi.jpg" alt="" class="ag-mg-ph"><span class="ag-mg-body"><b>Nicole Bianchi</b><span>Keynote Speaker and Best-Selling Author</span><span class="ag-mg-go">Meet &amp; greet and book signing ↓</span></span></a></div></div>
+<div class="ag-sp-tier"><p class="ag-sp-k">Meet &amp; greet</p><div class="ag-sp-row"><a class="ag-mg" href="#book-signing"><img src="/assets/speakers/nicole-bianchi.jpg" alt="" class="ag-mg-ph"><span class="ag-mg-body"><b>Nicole Bianchi</b><span>Keynote Speaker and Best-Selling Author</span><span class="ag-mg-go"><span class="ag-glow-text">Meet &amp; greet and book signing</span> ↓</span></span></a></div></div>
 <hr class="ag-exh-div">
 <div class="ag-sp-tier"><p class="ag-sp-k">Who is selling to support donations</p><div class="ag-sp-row"><span class="ag-lemon-tile"><svg class="ag-lemon-art" viewBox="0 0 240 150" aria-hidden="true" fill="none" stroke="#D5A939" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
 <path d="M14 136 H226" stroke="rgba(255,255,255,.35)"/>
@@ -544,21 +555,21 @@ html { scroll-behavior: smooth; }
 </g>
 <path d="M36 22 H204"/>
 <circle cx="96" cy="58" r="9"/><path d="M87 54 q4 -7 9 -5 q7 1 9 6"/>
-<path d="M96 67 V88 M96 74 L80 62 M96 74 L112 80"/>
-<circle cx="80" cy="62" r="2.6" fill="#D5A939" stroke="none"/>
+<path d="M96 67 V88 M96 74 L112 80"/>
+<g class="lm-wave"><path d="M96 74 L80 62"/><circle cx="80" cy="62" r="2.6" fill="#D5A939" stroke="none"/></g>
 <circle cx="146" cy="60" r="8.5"/><path d="M137.5 58 q-5 3 -3.5 10 M154.5 58 q5 3 3.5 10"/>
 <path d="M153 53.5 L147.5 50 L147.5 57 Z M153 53.5 L158.5 50 L158.5 57 Z" fill="#BD2024" stroke="#BD2024" stroke-width="1"/><circle cx="153" cy="53.5" r="1.7" fill="#E04A4F" stroke="none"/>
-<path d="M146 68.5 V88 M146 75 L132 82 M146 75 L162 80"/>
-<path d="M159 70 h8 l-1.4 12 h-5.2 Z" fill="#FBF4E2" stroke="#D5A939" stroke-width="1.4"/><path d="M159.6 74 h6.8" stroke="#F3DA8A" stroke-width="2.6"/>
+<path d="M146 68.5 V88 M146 75 L132 82"/>
+<g class="lm-cup"><path d="M146 75 L162 80"/><path d="M159 70 h8 l-1.4 12 h-5.2 Z" fill="#FBF4E2" stroke="#D5A939" stroke-width="1.4"/><path d="M159.6 74 h6.8" stroke="#F3DA8A" stroke-width="2.6"/></g>
 <rect x="40" y="88" width="160" height="44" rx="3" fill="#0F3E2D"/>
 <rect x="54" y="97" width="132" height="26" rx="4" fill="#FBF4E2" stroke="none"/>
 <text x="120" y="115.5" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="2" fill="#0F3E2D" stroke="none">LEMONADE</text>
 <g stroke-width="1.4">
-<ellipse cx="60" cy="83" rx="6" ry="4.6" fill="#F3DA8A"/><ellipse cx="71" cy="84" rx="5.4" ry="4.2" fill="#F3DA8A"/><path d="M57.5 81.5 q2 -2 4.5 -1" stroke="#FFFFFF" stroke-width="1"/>
+<g class="lm-lemons"><ellipse cx="60" cy="83" rx="6" ry="4.6" fill="#F3DA8A"/><ellipse cx="71" cy="84" rx="5.4" ry="4.2" fill="#F3DA8A"/></g><path d="M57.5 81.5 q2 -2 4.5 -1" stroke="#FFFFFF" stroke-width="1"/>
 <path d="M174 64 h16 l-1 22 h-14 Z" fill="none" stroke="#D5A939"/><path d="M175.2 72 h13.6 l-.6 13 h-12.4 Z" fill="#F3DA8A" stroke="none"/><path d="M190 68 q6 1 5 8 q-1 5 -6 5"/>
 <circle cx="181" cy="77" r="2.4" fill="#FFFFFF" stroke="#F3DA8A" stroke-width=".8"/>
 </g>
-</svg><span class="ag-lemon-t">For the Kids Lemonade Stand</span><span class="ag-lemon-b">Run by kids, with every sale supporting the For the Kids campaign for Blood Cancer United.</span></span><span class="ag-sp-slot ag-sp-md ag-sp-real ag-logo-tile ag-ampling-tile"><span class="ag-amp-col"><img src="/assets/exhibitors/ampling.png" alt="ampling." class="ag-logo-wide"><span class="ag-slogan">simple moments, amplified.</span><span class="ag-goods">Everyday goods that make simple moments feel a little more special.</span></span></span><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
+</svg><span class="ag-lemon-t">For the Kids Lemonade Stand</span><span class="ag-lemon-b">Run by kids, with every sale supporting the For the Kids campaign for Blood Cancer United.</span></span><span class="ag-sp-slot ag-sp-md ag-sp-real ag-logo-tile ag-ampling-tile"><span class="ag-amp-col"><img src="/assets/exhibitors/ampling.png" alt="ampling." class="ag-logo-wide"><span class="ag-slogan">the ordinary, amplified.</span><span class="ag-goods">Everyday goods that make simple moments feel a little more special.</span></span></span><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
 <hr class="ag-exh-div">
 <div class="ag-sp-tier"><p class="ag-sp-k">Monetary donation table</p><div class="ag-org-row"><div class="ag-org"><div class="ag-org-logo ag-org-bcuwrap"><span class="ag-org-wm ag-org-bcu">Blood Cancer United</span></div><div class="ag-org-body"><b>Blood Cancer United</b><p>Formerly The Leukemia &amp; Lymphoma Society, a global leader in blood cancer research, support and advocacy. Monetary donations accepted by card.</p><a class="ag-org-go" href="https://bloodcancerunited.org">Visit website →</a></div></div></div></div>
 <hr class="ag-exh-div">
@@ -581,7 +592,7 @@ html { scroll-behavior: smooth; }
 <div class="ag-sp-tier"><p class="ag-sp-k">Gold Sponsors <span class="ag-sp-amt">$5,000</span></p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-lg" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-lg" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Silver Sponsors <span class="ag-sp-amt">$2,500</span></p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Community Sponsors <span class="ag-sp-amt">$1,000</span></p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
-<div class="ag-sp-tier"><p class="ag-sp-k">In-Kind Partners</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-amp-tile"><img src="/assets/exhibitors/amplified-purple.png" alt="amplified. Business Solutions" class="ag-amp-img"></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-ca-tile"><img src="/assets/exhibitors/culturate-advisory.png" alt="Culturate Advisory" class="ag-ca-img"></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/nicole-bianchi.jpg" alt="" class="ag-ik-ph"><span><b>Nicole Bianchi</b><br><span class="ag-ik-sub">Keynote · Bravership®</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/steve-multer.jpg" alt="" class="ag-ik-ph"><span><b>Steve Multer</b><br><span class="ag-ik-sub">Host</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/alan-derek-utley.jpg" alt="" class="ag-ik-ph"><span><b>Alan Derek Utley</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/lauren-costley.jpg" alt="" class="ag-ik-ph"><span><b>Lauren Costley, CPC</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/laura-suttin.jpg" alt="" class="ag-ik-ph"><span><b>Dr. Laura Suttin</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
+<div class="ag-sp-tier"><p class="ag-sp-k">In-Kind Partners</p><div class="ag-sp-row ag-ik-row"><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-amp-tile"><img src="/assets/exhibitors/amplified-purple.png" alt="amplified. Business Solutions" class="ag-amp-img"></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-ca-tile"><img src="/assets/exhibitors/culturate-advisory.png" alt="Culturate Advisory" class="ag-ca-img"></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/nicole-bianchi.jpg" alt="" class="ag-ik-ph"><span><b>Nicole Bianchi</b><br><span class="ag-ik-sub">Keynote · Bravership®</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/steve-multer.jpg" alt="" class="ag-ik-ph"><span><b>Steve Multer</b><br><span class="ag-ik-sub">Host</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/alan-derek-utley.jpg" alt="" class="ag-ik-ph"><span><b>Alan Derek Utley</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/lauren-costley.jpg" alt="" class="ag-ik-ph"><span><b>Lauren Costley, CPC</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-logo-tile ag-ik-person"><img src="/assets/speakers/laura-suttin.jpg" alt="" class="ag-ik-ph"><span><b>Dr. Laura Suttin</b><br><span class="ag-ik-sub">Featured Speaker</span></span></span><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Location Sponsor</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-lg ag-sp-real">Partners Real Estate | David Ballard</span></div></div>
 <a class="ag-exh-go" href="/renew-sponsorship/">Become a RENEW<span style="color: #D5A939;">.</span> sponsor →</a>
 </div></section>
