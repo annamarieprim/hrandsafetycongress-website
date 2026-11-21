@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RENEW. Speaker Agenda | HR + Safety Congress</title>
+<meta name="description" content="HR + Safety Congress: creating safer workplaces and communities together through HR, safety and emergency preparedness education.">
+<link rel="icon" type="image/png" href="/assets/hrsc-logo.png">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+.ag { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: #1A2621; font-size: 18px; line-height: 1.55; }
+.ag a { color: #0F3E2D; }
+.ag-wrap { max-width: 920px; margin: 0 auto; padding: 56px 24px 72px; }
+.ag-list { list-style: none; margin: 0; padding: 0; position: relative; }
+.ag-list::before { content: ''; position: absolute; left: 118px; top: 8px; bottom: 8px; width: 3px; border-radius: 2px; background: linear-gradient(#D5A939, #E9CF85 50%, #D5A939); }
+.ag-row, .ag-t { display: grid; grid-template-columns: 100px 1fr; gap: 0 40px; align-items: center; position: relative; }
+.ag-row { margin: 14px 0; }
+.ag-row::before { content: ''; position: absolute; left: 112px; top: 50%; width: 15px; height: 15px; margin-top: -7.5px; border-radius: 50%; background: #FFFFFF; border: 3px solid #D5A939; box-sizing: border-box; }
+.ag-key::before { background: #D5A939; }
+.ag-time { font-weight: 700; font-size: 15px; color: #0F3E2D; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ag-card { display: flex; align-items: center; gap: 16px; background: #FFFFFF; border: 1px solid #D5E7DE; border-left: 4px solid #0F3E2D; border-radius: 8px; padding: 14px 18px; }
+.ag-key .ag-card { background: #0F3E2D; border-color: #0F3E2D; border-left-color: #D5A939; color: #FFFFFF; }
+.ag-ph { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: 0 0 56px; border: 2px solid #D5A939; }
+.ag-k { margin: 0; font-weight: 800; font-size: 14px; letter-spacing: .12em; color: #8A6A12; }
+.ag-key .ag-k { color: #D5A939; }
+.ag-who { margin: 2px 0 0; font-size: 18px; font-weight: 600; color: #0F3E2D; }
+.ag-key .ag-who { color: #FFFFFF; }
+.ag-t { margin: 2px 0; }
+.ag-t .ag-time { font-weight: 500; font-size: 13px; color: #6B7F75; }
+.ag-tline { font-size: 14px; color: #5B6B64; padding: 4px 0 4px 2px; }
+.ag-tline em { font-style: italic; color: #3E5A4D; }
+.ag-grace-row { margin: 22px 0; }
+.ag-grace { position: relative; overflow: hidden; border-radius: 10px; padding: 26px 26px; background: linear-gradient(135deg, #0F3E2D, #14513B); color: #FFFFFF; border: 2px solid #D5A939; }
+.ag-grace .ag-k { color: #D5A939; position: relative; z-index: 6; }
+.ag-grace-h { margin: 8px 0 4px; font-family: 'Playfair Display', Georgia, serif; font-size: 26px; line-height: 1.25; color: #FFFFFF; position: relative; z-index: 6; }
+.ag-grace .ag-who { color: #DCE9E2; font-weight: 500; font-size: 15px; position: relative; z-index: 6; }
+@media (max-width: 640px) {
+  .ag-list::before { left: 7px; }
+  .ag-row, .ag-t { grid-template-columns: 1fr; gap: 4px; padding-left: 28px; }
+  .ag-row::before { left: 1px; top: 12px; margin-top: 0; }
+  .ag-time { text-align: left; }
+  .ag-grace-h { font-size: 22px; }
+}
+@media print {
+  header, footer, .ag-hero-leaves, canvas, #hsc-chat, #hsc-chat-btn { display: none !important; }
+  .ag-hero { background: #FFFFFF !important; color: #0F3E2D !important; padding: 0 0 10px !important; }
+  .ag-hero * { color: #0F3E2D !important; }
+  @page { margin: 0.4in 0.5in; }
+  .ag-hero > div { padding: 0 !important; }
+  .ag-hero h1 { font-size: 34px !important; }
+  .ag-hero p { margin-top: 2px !important; margin-bottom: 2px !important; font-size: 12px !important; }
+  .ag-wrap { padding: 6px 0 0; }
+  .ag-list::before { left: 88px; }
+  .ag-row, .ag-t { grid-template-columns: 72px 1fr; gap: 0 30px; }
+  .ag-row::before { left: 82px; width: 12px; height: 12px; margin-top: -6px; }
+  .ag-row { margin: 3px 0; break-inside: avoid; }
+  .ag-t { margin: 0; }
+  .ag-time { font-size: 11px; }
+  .ag-t .ag-time { font-size: 10px; }
+  .ag-card { padding: 4px 10px; gap: 10px; }
+  .ag-k { font-size: 9.5px; }
+  .ag-who { font-size: 12.5px; margin: 0; }
+  .ag-tline { font-size: 10.5px; padding: 1px 0; }
+  .ag-ph { width: 28px; height: 28px; flex-basis: 28px; }
+  .ag-grace-row { margin: 5px 0; }
+  .ag-grace { padding: 8px 12px; }
+  .ag-grace-h { font-size: 15px; margin: 2px 0 0; }
+  .ag-key .ag-card, .ag-grace { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+<script>
+/* RENEW agenda: a few eucalyptus leaves drift in the A Moment of Grace panel (waits for the page to be unlocked) */
+(function () {
+  if (window.__agLeaves) return; window.__agLeaves = true;
+  var greens = ['#8FB09B', '#A7C3B1', '#6F9A86', '#9DB8B0', '#B9CFBE'];
+  function zone(el, opts) {
+    if (!el) return;
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    var c = document.createElement('canvas');
+    c.setAttribute('aria-hidden', 'true');
+    c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5';
+    el.appendChild(c);
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, visible = false;
+    function size() { W = c.width = el.clientWidth * dpr; H = c.height = el.clientHeight * dpr; }
+    size(); addEventListener('resize', size); setTimeout(size, 1500);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(el); else visible = true;
+    var leaves = [], MAX = innerWidth < 700 ? opts.maxM : opts.max, next = 0;
+    function spawn(t, initial) {
+      var s = (opts.min + Math.random() * (opts.maxS - opts.min)) * dpr, p;
+      if (opts.across) {
+        /* menu bar: leaves float sideways on a light breeze */
+        p = { x: initial ? Math.random() * W : W + s * 2, y: H * (0.2 + Math.random() * 0.6), vx: -(0.25 + Math.random() * 0.3) * dpr, vy: 0,
+          sway: (4 + Math.random() * 6) * dpr };
+      } else {
+        p = { x: Math.random() * W, y: initial ? Math.random() * H * 0.6 : -s * 2, vx: 0, vy: (0.35 + Math.random() * 0.45) * dpr,
+          sway: (18 + Math.random() * 30) * dpr };
+      }
+      p.s = s; p.ph = Math.random() * 6.28; p.sp = 0.006 + Math.random() * 0.006; p.r = Math.random() * 6.28;
+      p.vr = (Math.random() - 0.5) * 0.012; p.flip = Math.random() * 6.28; p.c = greens[Math.floor(Math.random() * greens.length)];
+      p.a = opts.alpha + Math.random() * 0.25; p.off = 0;
+      leaves.push(p); next = t + opts.gap + Math.random() * opts.gap * 1.5;
+    }
+    function draw(p) {
+      var s = p.s, w = s * 0.62 * (0.35 + 0.65 * Math.abs(Math.cos(p.flip)));
+      ctx.save();
+      if (opts.across) ctx.translate(p.x, p.y + p.off); else ctx.translate(p.x + p.off, p.y);
+      ctx.rotate(p.r); ctx.globalAlpha = p.a;
+      ctx.beginPath(); ctx.moveTo(0, -s);
+      ctx.bezierCurveTo(w, -s * 0.55, w, s * 0.55, 0, s);
+      ctx.bezierCurveTo(-w, s * 0.55, -w, -s * 0.55, 0, -s);
+      ctx.fillStyle = p.c; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = Math.max(1, dpr * 0.8);
+      ctx.beginPath(); ctx.moveTo(0, -s * 0.85); ctx.quadraticCurveTo(w * 0.15, 0, 0, s * 0.85); ctx.stroke();
+      ctx.strokeStyle = p.c; ctx.lineWidth = Math.max(1, dpr); ctx.beginPath(); ctx.moveTo(0, s); ctx.lineTo(0, s * 1.25); ctx.stroke();
+      ctx.restore();
+    }
+    var t0 = performance.now(); for (var k = 0; k < opts.start; k++) spawn(t0, true);
+    (function frame(t) {
+      if (!document.hidden && visible) {
+        ctx.clearRect(0, 0, W, H);
+        if (t > next && leaves.length < MAX) spawn(t, false);
+        for (var i = leaves.length - 1; i >= 0; i--) {
+          var p = leaves[i];
+          p.ph += p.sp; p.x += p.vx; p.y += p.vy; p.off = Math.sin(p.ph) * p.sway; p.r += p.vr + Math.cos(p.ph) * 0.004; p.flip += 0.012;
+          if (p.y > H + p.s * 2 || p.x < -p.s * 3) { leaves.splice(i, 1); continue; }
+          draw(p);
+        }
+      }
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+  function start() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = document.getElementById('ag-grace');
+    if (!el) { addEventListener('hsc-unlocked', start, { once: true }); return; }
+    zone(el, { max: 5, maxM: 3, start: 2, gap: 2200, min: 12, maxS: 22, alpha: 0.5 });
+  }
+  if (document.readyState === 'complete') start(); else addEventListener('load', start);
+})();
+</script>
+</head>
+<body>
+<div id="lock" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0F3E2D; padding: 24px; box-sizing: border-box; font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;">
+<form id="lock-form" style="width: min(420px, 100%); background: #FFFFFF; border-top: 5px solid #D5A939; border-radius: 10px; padding: 32px; box-sizing: border-box; box-shadow: 0 24px 60px rgba(0,0,0,.3);">
+<img src="/assets/hrsc-logo.png" alt="HR + Safety Congress logo" style="width: 64px; height: 64px; display: block;">
+<h1 style="margin: 16px 0 6px; font-family: 'Playfair Display', Georgia, serif; font-size: 28px; color: #0F3E2D;">RENEW<span style="color: #D5A939;">.</span> Speaker Agenda</h1>
+<p style="margin: 0 0 20px; color: #33443D; font-size: 16px;">This page is shared privately with RENEW. speakers. Enter the password you were given.</p>
+<label for="lock-pw" style="display: block; font-size: 14px; font-weight: 700; color: #0F3E2D; margin-bottom: 6px;">Password</label>
+<input id="lock-pw" type="password" autocomplete="current-password" required style="width: 100%; box-sizing: border-box; font: inherit; font-size: 17px; padding: 12px 14px; border: 1px solid #9AB3A7; border-radius: 4px;">
+<p id="lock-err" role="alert" style="margin: 10px 0 0; min-height: 1.4em; color: #A3232B; font-size: 15px;"></p>
+<button type="submit" style="margin-top: 6px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; padding: 13px; border: 0; border-radius: 4px; background: #D5A939; color: #082B1E; cursor: pointer;">View page</button>
+<p style="margin: 18px 0 0; font-size: 14px; color: #4A5A53;">Need access? <a href="mailto:info@hrandsafetycongress.com" style="color: #0F3E2D;">info@hrandsafetycongress.com</a></p>
+</form>
+</div>
+<script>
+(function () {
+  var D = { s: 'psbVDh36E2TZP6d1HA90TQ==', i: 'CR41nARLS4FkLpY2', c: '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' };
+  function u(b) { return Uint8Array.from(atob(b), function (c) { return c.charCodeAt(0); }); }
+  async function open(pw) {
+    var k = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    var key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: u(D.s), iterations: 250000, hash: 'SHA-256' }, k, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    var pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u(D.i) }, key, u(D.c));
+    return new TextDecoder().decode(pt);
+  }
+  function show(html) {
+    document.getElementById('lock').remove();
+    var t = document.createElement('div'); t.innerHTML = html; document.body.appendChild(t);
+    t.querySelectorAll('script').forEach(function (o) { var n = document.createElement('script'); n.textContent = o.textContent; o.replaceWith(n); });
+    window.dispatchEvent(new Event('hsc-unlocked'));
+  }
+  var saved; try { saved = sessionStorage.getItem('renewAg'); } catch (e) {}
+  if (saved) open(saved).then(show).catch(function () {});
+  document.getElementById('lock-form').addEventListener('submit', function (e) {
+    e.preventDefault(); var pw = document.getElementById('lock-pw').value, err = document.getElementById('lock-err');
+    err.textContent = 'Checking…';
+    open(pw).then(function (h) { try { sessionStorage.setItem('renewAg', pw); } catch (x) {} show(h); })
+      .catch(function () { err.textContent = 'That password isn’t right. Please try again.'; });
+  });
+})();
+</script>
+</body>
+</html>
