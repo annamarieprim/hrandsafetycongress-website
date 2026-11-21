@@ -54,6 +54,12 @@ a.ag-sp-slot:hover { border-color: #D5A939; color: #0F3E2D; }
 .ag-sp-md { width: min(100%, 230px); height: 80px; font-size: 15px; }
 .ag-sp-sm { width: min(100%, 170px); height: 64px; font-size: 14px; }
 .ag-logo-tile { gap: 10px; }
+.ag-amp-tile { background: #2E0050; border-color: #2E0050; padding: 0; overflow: hidden; }
+.ag-amp-tile { position: relative; }
+.ag-amp-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ag-lemon-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; width: min(100%, 260px); border-radius: 10px; background: #0F3E2D; padding: 10px 12px 10px; }
+.ag-lemon-art { width: 100%; height: auto; display: block; }
+.ag-lemon-t { margin-top: 4px; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 16px; color: #FFFFFF; text-align: center; }
 .ag-logo-sq { width: 56px; height: 56px; object-fit: contain; flex: 0 0 56px; }
 .ag-logo-wide { max-width: 82%; max-height: 54px; object-fit: contain; }
 .ag-sp-real { border-style: solid; border-color: #D5E7DE; background: #FFFFFF; color: #0F3E2D; }
@@ -475,8 +481,33 @@ html { scroll-behavior: smooth; }
 <section class="ag-exh" id="exhibitors"><div class="ag-bring-in">
 <h2 class="ag-h2">Exhibitor Hall</h2>
 <p class="ag-exh-t" style="margin-bottom: 16px;">Visit the Exhibitor Hall during breakfast, both breaks and the 1:00 networking hour.</p>
-<div class="ag-sp-tier"><p class="ag-sp-k">Who will be present</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-lg ag-sp-real ag-logo-tile"><img src="/assets/hrsc-logo.png" alt="" class="ag-logo-sq"><span>HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup></span></span><span class="ag-sp-slot ag-sp-lg ag-sp-real ag-logo-tile"><img src="/assets/exhibitors/amplified.png" alt="amplified. Business Solutions" class="ag-logo-wide"></span><span class="ag-sp-slot ag-sp-lg ag-sp-real">Blood Cancer United</span></div></div>
-<div class="ag-sp-tier"><p class="ag-sp-k">Who is selling</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-md ag-sp-real ag-logo-tile"><img src="/assets/exhibitors/ampling.png" alt="ampling." class="ag-logo-wide"></span><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
+<div class="ag-sp-tier"><p class="ag-sp-k">Who will be present</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-lg ag-sp-real ag-logo-tile"><img src="/assets/hrsc-logo.png" alt="" class="ag-logo-sq"><span>HR + Safety Congress<sup style="font-size: 0.5em; vertical-align: super; line-height: 0; margin-left: 0.05em;">TM</sup></span></span><span class="ag-sp-slot ag-sp-lg ag-sp-real ag-amp-tile"><img src="/assets/exhibitors/amplified-purple.png" alt="amplified. Business Solutions" class="ag-amp-img"></span><span class="ag-sp-slot ag-sp-lg ag-sp-real">Blood Cancer United</span></div></div>
+<div class="ag-sp-tier"><p class="ag-sp-k">Who is selling</p><div class="ag-sp-row"><span class="ag-lemon-tile"><svg class="ag-lemon-art" viewBox="0 0 240 150" aria-hidden="true" fill="none" stroke="#D5A939" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M14 136 H226" stroke="rgba(255,255,255,.35)"/>
+<path d="M46 38 V92 M194 38 V92"/>
+<g stroke="none">
+<path d="M38 22 H202 V38 H38 Z" fill="#FBF4E2"/>
+<path d="M38 22 H58.5 V38 H38 Z M79 22 H99.5 V38 H79 Z M120 22 H140.5 V38 H120 Z M161 22 H181.5 V38 H161 Z" fill="#D5A939"/>
+<path d="M38 38 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 q10.25 9 20.5 0 Z" fill="#FBF4E2"/>
+<path d="M38 38 q10.25 9 20.5 0 Z M79 38 q10.25 9 20.5 0 Z M120 38 q10.25 9 20.5 0 Z M161 38 q10.25 9 20.5 0 Z" fill="#D5A939"/>
+</g>
+<path d="M36 22 H204"/>
+<circle cx="96" cy="58" r="9"/><path d="M87 54 q4 -7 9 -5 q7 1 9 6"/>
+<path d="M96 67 V88 M96 74 L80 62 M96 74 L112 80"/>
+<circle cx="80" cy="62" r="2.6" fill="#D5A939" stroke="none"/>
+<circle cx="146" cy="60" r="8.5"/><path d="M137.5 58 q-5 3 -3.5 10 M154.5 58 q5 3 3.5 10"/>
+<path d="M153 53.5 L147.5 50 L147.5 57 Z M153 53.5 L158.5 50 L158.5 57 Z" fill="#BD2024" stroke="#BD2024" stroke-width="1"/><circle cx="153" cy="53.5" r="1.7" fill="#E04A4F" stroke="none"/>
+<path d="M146 68.5 V88 M146 75 L132 82 M146 75 L162 80"/>
+<path d="M159 70 h8 l-1.4 12 h-5.2 Z" fill="#FBF4E2" stroke="#D5A939" stroke-width="1.4"/><path d="M159.6 74 h6.8" stroke="#F3DA8A" stroke-width="2.6"/>
+<rect x="40" y="88" width="160" height="44" rx="3" fill="#0F3E2D"/>
+<rect x="54" y="97" width="132" height="26" rx="4" fill="#FBF4E2" stroke="none"/>
+<text x="120" y="115.5" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="2" fill="#0F3E2D" stroke="none">LEMONADE</text>
+<g stroke-width="1.4">
+<ellipse cx="60" cy="83" rx="6" ry="4.6" fill="#F3DA8A"/><ellipse cx="71" cy="84" rx="5.4" ry="4.2" fill="#F3DA8A"/><path d="M57.5 81.5 q2 -2 4.5 -1" stroke="#FFFFFF" stroke-width="1"/>
+<path d="M174 64 h16 l-1 22 h-14 Z" fill="none" stroke="#D5A939"/><path d="M175.2 72 h13.6 l-.6 13 h-12.4 Z" fill="#F3DA8A" stroke="none"/><path d="M190 68 q6 1 5 8 q-1 5 -6 5"/>
+<circle cx="181" cy="77" r="2.4" fill="#FFFFFF" stroke="#F3DA8A" stroke-width=".8"/>
+</g>
+</svg><span class="ag-lemon-t">For the Kids Lemonade Stand</span></span><span class="ag-sp-slot ag-sp-md ag-sp-real ag-logo-tile"><img src="/assets/exhibitors/ampling.png" alt="ampling." class="ag-logo-wide"></span><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
 <a class="ag-exh-go" href="/renew-sponsorship/">Interested in exhibiting? See sponsorship opportunities →</a>
 </div></section>
 <section class="ag-spons" id="sponsors"><div class="ag-bring-in">
@@ -485,7 +516,7 @@ html { scroll-behavior: smooth; }
 <div class="ag-sp-tier"><p class="ag-sp-k">Gold Sponsors</p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-lg" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-lg" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Silver Sponsors</p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-md" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Community Sponsors</p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
-<div class="ag-sp-tier"><p class="ag-sp-k">In-Kind Partners</p><div class="ag-sp-row"><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
+<div class="ag-sp-tier"><p class="ag-sp-k">In-Kind Partners</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-sm ag-sp-real ag-amp-tile"><img src="/assets/exhibitors/amplified-purple.png" alt="amplified. Business Solutions" class="ag-amp-img"></span><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a><a class="ag-sp-slot ag-sp-sm" href="/renew-sponsorship/">Your name here</a></div></div>
 <div class="ag-sp-tier"><p class="ag-sp-k">Location Sponsor</p><div class="ag-sp-row"><span class="ag-sp-slot ag-sp-lg ag-sp-real">Partners Real Estate | David Ballard</span></div></div>
 <a class="ag-exh-go" href="/renew-sponsorship/">Become a RENEW<span style="color: #D5A939;">.</span> sponsor →</a>
 </div></section>
