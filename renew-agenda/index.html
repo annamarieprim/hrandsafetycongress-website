@@ -322,6 +322,9 @@ html { scroll-behavior: smooth; }
 .ag-sc-grow .ag-sc-k { color: #D5A939; } .ag-sc-grow .ag-sc-t { color: #E8F0EC; }
 .ag-sc-give { border-top-color: #BD2024; } .ag-sc-give .ag-sc-k { color: #BD2024; }
 .ag-pill-give { background: #BD2024; color: #FFFFFF; }
+.ag-pill-give { display: inline-block; animation: agHeart 1.6s ease-in-out infinite; transform-origin: center; }
+@keyframes agHeart { 0%, 40%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(189,32,36,0); } 10% { transform: scale(1.14); box-shadow: 0 0 0 4px rgba(189,32,36,.18); } 20% { transform: scale(1.02); } 30% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(189,32,36,0); } }
+@media (prefers-reduced-motion: reduce) { .ag-pill-give { animation: none; } }
 .ag-giverow .ag-card { border-left-color: #BD2024; }
 .ag-sc-grace { background: #FBF4E2; border-color: #EAD9A6; border-top: 4px solid #D5A939; }
 @media (max-width: 1000px) { .ag-side-more { grid-column: 1 / -1; margin-top: 8px; } .ag-grid { grid-template-columns: 1fr; } .ag-side { order: -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } .ag-side-h { grid-column: 1 / -1; } }
